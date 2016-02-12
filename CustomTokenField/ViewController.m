@@ -7,17 +7,19 @@
 //
 
 #import "ViewController.h"
+#import "EditToken.h"
 #import "Token.h"
 
 @implementation ViewController {
-    NSMutableArray *_labels;
+    NSMutableArray<Token*> *_tokens;
+    EditToken *_editToken;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.
-    _labels = [NSMutableArray array];
+    _tokens = [NSMutableArray array];
 
     NSRect documentViewFrame = _scrollView.frame;
     documentViewFrame.size.width *= 2;
@@ -25,24 +27,17 @@
     NSView *documentView = [[NSView alloc] initWithFrame:documentViewFrame];
     [_scrollView setDocumentView:documentView];
     
-    [_labels addObject:[Token createToken:@"Label1" viewController:self rect:NSMakeRect(0, 1, 44, documentView.frame.size.height-2)]];
-    [_labels addObject:[Token createToken:@"Label2" viewController:self rect:NSMakeRect(((NSView*)_labels.lastObject).frame.origin.x + ((NSView*)_labels.lastObject).frame.size.width + 2, 1, 44, documentView.frame.size.height-2)]];
-    [_labels addObject:[Token createToken:@"Label3" viewController:self rect:NSMakeRect(((NSView*)_labels.lastObject).frame.origin.x + ((NSView*)_labels.lastObject).frame.size.width + 2, 1, 44, documentView.frame.size.height-2)]];
+    [_tokens addObject:[Token createToken:@"Label1" viewController:self rect:NSMakeRect(0, 1, 44, documentView.frame.size.height-2)]];
+    [_tokens addObject:[Token createToken:@"Label2" viewController:self rect:NSMakeRect(((NSView*)_tokens.lastObject).frame.origin.x + ((NSView*)_tokens.lastObject).frame.size.width + 2, 1, 44, documentView.frame.size.height-2)]];
+    [_tokens addObject:[Token createToken:@"Label3" viewController:self rect:NSMakeRect(((NSView*)_tokens.lastObject).frame.origin.x + ((NSView*)_tokens.lastObject).frame.size.width + 2, 1, 44, documentView.frame.size.height-2)]];
 
-    for(NSView *label in _labels) {
-        [documentView addSubview:label];
+    for(NSView *token in _tokens) {
+        [documentView addSubview:token];
     }
 
-    NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(((NSView*)_labels.lastObject).frame.origin.x + ((NSView*)_labels.lastObject).frame.size.width + 1, -2, CGFLOAT_MAX, documentView.frame.size.height)];
+    _editToken = [EditToken createEditToken:self rect:NSMakeRect(((NSView*)_tokens.lastObject).frame.origin.x + ((NSView*)_tokens.lastObject).frame.size.width + 1, -2, CGFLOAT_MAX, documentView.frame.size.height)];
     
-    textField.focusRingType = NSFocusRingTypeNone;
-    textField.bordered = NO;
-    textField.placeholderString = @"Search";
-    textField.preferredMaxLayoutWidth = CGFLOAT_MAX;
-    textField.cell.wraps = NO;
-    textField.cell.usesSingleLineMode = YES;
-    
-    [documentView addSubview:textField];
+    [documentView addSubview:_editToken];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
