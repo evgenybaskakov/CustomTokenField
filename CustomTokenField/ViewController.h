@@ -10,6 +10,7 @@
 
 @interface ViewController : NSViewController
 
+@property IBOutlet NSScrollView *scrollView;
 
 @end
 
