@@ -674,7 +674,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <box fixedFrame="YES" title="Box" boxType="custom" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Db2-32-U2n">
+                            <box fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Db2-32-U2n">
                                 <rect key="frame" x="20" y="231" width="440" height="22"/>
                                 <view key="contentView" ambiguous="YES" id="dec-XB-DNG">
                                     <rect key="frame" x="1" y="1" width="438" height="20"/>
@@ -684,14 +684,14 @@
                                             <rect key="frame" x="3" y="3" width="14" height="14"/>
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="search-icon" id="ueT-d8-KjE"/>
                                         </imageView>
-                                        <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCO-yH-DzG">
+                                        <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="nCO-yH-DzG">
                                             <rect key="frame" x="20" y="0.0" width="418" height="20"/>
                                             <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="Lfp-RU-r7g">
                                                 <rect key="frame" x="0.0" y="0.0" width="418" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AEE-le-hLG">
-                                                        <rect key="frame" x="0.0" y="-74" width="181" height="94"/>
+                                                        <rect key="frame" x="0.0" y="-74" width="419" height="20"/>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

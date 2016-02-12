@@ -14,6 +14,17 @@
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.
+    NSView *documentView = [[NSView alloc] initWithFrame:_scrollView.frame];
+    [_scrollView setDocumentView:documentView];
+    
+    NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, -2, CGFLOAT_MAX, documentView.frame.size.height)];
+    textField.focusRingType = NSFocusRingTypeNone;
+    textField.bordered = NO;
+    textField.placeholderString = @"Search";
+    textField.preferredMaxLayoutWidth = CGFLOAT_MAX;
+    textField.cell.wraps = NO;
+    textField.cell.usesSingleLineMode = YES;
+    [documentView addSubview:textField];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
