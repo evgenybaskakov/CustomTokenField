@@ -14,7 +14,10 @@
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.
-    NSView *documentView = [[NSView alloc] initWithFrame:_scrollView.frame];
+    NSRect documentViewFrame = _scrollView.frame;
+    documentViewFrame.size.width *= 2;
+    
+    NSView *documentView = [[NSView alloc] initWithFrame:documentViewFrame];
     [_scrollView setDocumentView:documentView];
     
     NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, -2, CGFLOAT_MAX, documentView.frame.size.height)];
@@ -24,6 +27,7 @@
     textField.preferredMaxLayoutWidth = CGFLOAT_MAX;
     textField.cell.wraps = NO;
     textField.cell.usesSingleLineMode = YES;
+    
     [documentView addSubview:textField];
 }
 
