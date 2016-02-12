@@ -22,7 +22,7 @@
     _tokens = [NSMutableArray array];
 
     NSRect documentViewFrame = _scrollView.frame;
-    documentViewFrame.size.width *= 2;
+    documentViewFrame.size.width = CGFLOAT_MAX;
     
     NSView *documentView = [[NSView alloc] initWithFrame:documentViewFrame];
     [_scrollView setDocumentView:documentView];
@@ -35,7 +35,7 @@
         [documentView addSubview:token];
     }
 
-    _editToken = [EditToken createEditToken:self rect:NSMakeRect(((NSView*)_tokens.lastObject).frame.origin.x + ((NSView*)_tokens.lastObject).frame.size.width + 1, -2, CGFLOAT_MAX, documentView.frame.size.height)];
+    _editToken = [EditToken createEditToken:self rect:NSMakeRect(((NSView*)_tokens.lastObject).frame.origin.x + ((NSView*)_tokens.lastObject).frame.size.width + 1, -4, CGFLOAT_MAX, documentView.frame.size.height)];
     
     [documentView addSubview:_editToken];
 }
@@ -44,6 +44,22 @@
     [super setRepresentedObject:representedObject];
 
     // Update the view, if already loaded.
+}
+
+- (void)textViewDidChangeSelection:(NSNotification *)notification {
+    
+}
+
+- (void)textDidEndEditing:(NSNotification *)notification {
+    
+}
+
+- (void)textDidBeginEditing:(NSNotification *)notification {
+    
+}
+
+- (void)textDidChange:(NSNotification *)notification {
+    
 }
 
 @end

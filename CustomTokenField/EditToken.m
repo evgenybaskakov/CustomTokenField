@@ -14,16 +14,12 @@
 }
 
 + (EditToken*)createEditToken:(ViewController*)viewController rect:(NSRect)rect {
-    EditToken *textField = [[EditToken alloc] initWithFrame:rect viewController:viewController];
+    EditToken *editToken = [[EditToken alloc] initWithFrame:rect viewController:viewController];
+
+    editToken.focusRingType = NSFocusRingTypeNone;
+    editToken.delegate = viewController;
     
-    textField.focusRingType = NSFocusRingTypeNone;
-    textField.bordered = NO;
-    textField.placeholderString = @"Search";
-    textField.preferredMaxLayoutWidth = CGFLOAT_MAX;
-    textField.cell.wraps = NO;
-    textField.cell.usesSingleLineMode = YES;
-    
-    return textField;
+    return editToken;
 }
 
 - (id)initWithFrame:(NSRect)frameRect viewController:(ViewController*)viewController {

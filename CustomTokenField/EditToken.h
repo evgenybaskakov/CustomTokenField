@@ -10,7 +10,7 @@
 
 @class ViewController;
 
-@interface EditToken : NSTextField
+@interface EditToken : NSTextView
 
 + (EditToken*)createEditToken:(ViewController*)viewController rect:(NSRect)rect;
 
