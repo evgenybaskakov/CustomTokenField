@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		809E09A91C6DA54F0071D813 /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 809E09A81C6DA54F0071D813 /* search-icon.png */; };
+		80C0E2741C6DC2DA002F4ADC /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C0E2731C6DC2DA002F4ADC /* Token.m */; };
 		80E0851E1C6C776200964540 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E0851D1C6C776200964540 /* AppDelegate.m */; };
 		80E085211C6C776200964540 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E085201C6C776200964540 /* main.m */; };
 		80E085241C6C776200964540 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E085231C6C776200964540 /* ViewController.m */; };
@@ -36,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		809E09A81C6DA54F0071D813 /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
+		80C0E2721C6DC2DA002F4ADC /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
+		80C0E2731C6DC2DA002F4ADC /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
 		80E085191C6C776200964540 /* CustomTokenField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomTokenField.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80E0851C1C6C776200964540 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		80E0851D1C6C776200964540 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				80E0851D1C6C776200964540 /* AppDelegate.m */,
 				80E085221C6C776200964540 /* ViewController.h */,
 				80E085231C6C776200964540 /* ViewController.m */,
+				80C0E2721C6DC2DA002F4ADC /* Token.h */,
+				80C0E2731C6DC2DA002F4ADC /* Token.m */,
 				80E085251C6C776200964540 /* Assets.xcassets */,
 				80E085271C6C776200964540 /* Main.storyboard */,
 				80E0852A1C6C776200964540 /* Info.plist */,
@@ -273,6 +278,7 @@
 				80E085241C6C776200964540 /* ViewController.m in Sources */,
 				80E085211C6C776200964540 /* main.m in Sources */,
 				80E0851E1C6C776200964540 /* AppDelegate.m in Sources */,
+				80C0E2741C6DC2DA002F4ADC /* Token.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
