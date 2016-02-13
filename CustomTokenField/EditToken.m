@@ -44,6 +44,11 @@
     // Drawing code here.
 }
 
+- (BOOL)becomeFirstResponder {
+    [_viewController editToken:self];
+    return YES;
+}
+
 - (void)paste:(id)sender {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
     NSString *text = [pb stringForType:NSPasteboardTypeString];
@@ -56,9 +61,14 @@
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-    [super keyDown:theEvent];
-    
     NSLog(@"%s: %@", __FUNCTION__, theEvent);
+
+    if(theEvent.keyCode == 123 && self.selectedRange.location == 0) {
+        [_viewController cursorLeftFrom:self];
+    }
+    else {
+        [super keyDown:theEvent];
+    }
 }
 
 @end

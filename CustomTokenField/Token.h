@@ -12,6 +12,8 @@
 
 @interface Token : NSTextField
 
+@property (nonatomic) BOOL selected;
+
 + (Token*)createToken:(NSString*)text viewController:(ViewController*)viewController rect:(NSRect)rect;
 
 @end

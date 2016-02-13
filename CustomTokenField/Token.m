@@ -16,14 +16,13 @@
 + (Token*)createToken:(NSString*)text viewController:(ViewController*)viewController rect:(NSRect)rect {
     Token *token = [[Token alloc] initWithFrame:rect viewController:viewController];
     
+    token.selected = NO;
     token.focusRingType = NSFocusRingTypeNone;
     token.bezeled = YES;
-    token.backgroundColor = [NSColor colorWithCalibratedRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     token.cell.wraps = NO;
     token.cell.usesSingleLineMode = YES;
     token.editable = NO;
     token.stringValue = text;
-//    token.wantsLayer = YES;
     token.layer.cornerRadius = 5;
     token.layer.masksToBounds = YES;
     [token setFont:[NSFont systemFontOfSize:11]];
@@ -45,6 +44,15 @@
     [super drawRect:dirtyRect];
     
     // Drawing code here.
+}
+
+- (void)setSelected:(BOOL)selected {
+    if(selected) {
+        self.backgroundColor = [NSColor colorWithCalibratedRed:0.7 green:0.7 blue:1.0 alpha:1.0];
+    }
+    else {
+        self.backgroundColor = [NSColor colorWithCalibratedRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    }
 }
 
 @end

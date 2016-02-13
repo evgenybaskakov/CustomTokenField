@@ -8,9 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class EditToken;
+
 @interface ViewController : NSViewController<NSTextViewDelegate>
 
 @property IBOutlet NSScrollView *scrollView;
+@property (readonly) BOOL editingText;
+
+- (void)editToken:(EditToken*)sender;
+- (void)cursorLeftFrom:(EditToken*)sender;
 
 @end
 

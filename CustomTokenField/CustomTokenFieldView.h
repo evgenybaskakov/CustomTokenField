@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class ViewController;
+
 @interface CustomTokenFieldView : NSView
+
+@property ViewController *__weak viewController;
 
 @end

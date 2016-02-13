@@ -6,6 +6,7 @@
 //  Copyright © 2016 Evgeny Baskakov. All rights reserved.
 //
 
+#import "ViewController.h"
 #import "CustomTokenFieldView.h"
 
 @implementation CustomTokenFieldView
@@ -20,6 +21,8 @@
     [super keyDown:theEvent];
     
     NSLog(@"%s: %@", __FUNCTION__, theEvent);
+    
+    [_viewController keyDown:theEvent];
 }
 
 - (BOOL)acceptsFirstResponder {
