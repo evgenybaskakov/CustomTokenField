@@ -94,6 +94,8 @@
         _tokens[_currentToken].selected = YES;
         
         _editingText = NO;
+
+        [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
     }
 }
 
@@ -108,6 +110,8 @@
 
                 [_selectedTokens removeAllIndexes];
                 [_selectedTokens addIndex:_currentToken];
+
+                [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
             }
         }
         else if(theEvent.keyCode == 124) {
@@ -117,6 +121,8 @@
 
                 [_selectedTokens removeAllIndexes];
                 [_selectedTokens addIndex:_currentToken];
+
+                [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
             }
             else if(_currentToken == _tokens.count-1) {
                 _tokens[_currentToken].selected = NO;
