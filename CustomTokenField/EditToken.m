@@ -18,6 +18,12 @@
 
     editToken.focusRingType = NSFocusRingTypeNone;
     editToken.delegate = viewController;
+    editToken.richText = NO;
+    editToken.verticallyResizable = NO;
+    editToken.importsGraphics = NO;
+    editToken.textContainer.widthTracksTextView = NO;
+    editToken.textContainer.containerSize = NSMakeSize(CGFLOAT_MAX, editToken.textContainer.containerSize.height);
+    editToken.fieldEditor = YES;
     
     return editToken;
 }
@@ -36,6 +42,23 @@
     [super drawRect:dirtyRect];
     
     // Drawing code here.
+}
+
+- (void)paste:(id)sender {
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    NSString *text = [pb stringForType:NSPasteboardTypeString];
+    
+    if(text != nil) {
+        NSArray *lines = [text componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        NSString *oneLine = [lines componentsJoinedByString:@""];
+        [self insertText:oneLine replacementRange:self.selectedRange];
+    }
+}
+
+- (void)keyDown:(NSEvent *)theEvent {
+    [super keyDown:theEvent];
+    
+    NSLog(@"%s: %@", __FUNCTION__, theEvent);
 }
 
 @end

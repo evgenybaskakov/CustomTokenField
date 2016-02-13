@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "CustomTokenFieldView.h"
 #import "EditToken.h"
 #import "Token.h"
 
@@ -24,7 +25,7 @@
     NSRect documentViewFrame = _scrollView.frame;
     documentViewFrame.size.width = CGFLOAT_MAX;
     
-    NSView *documentView = [[NSView alloc] initWithFrame:documentViewFrame];
+    NSView *documentView = [[CustomTokenFieldView alloc] initWithFrame:documentViewFrame];
     [_scrollView setDocumentView:documentView];
     
     [_tokens addObject:[Token createToken:@"Label1" viewController:self rect:NSMakeRect(0, 1, 44, documentView.frame.size.height-2)]];
@@ -47,7 +48,7 @@
 }
 
 - (void)textViewDidChangeSelection:(NSNotification *)notification {
-    
+    NSLog(@"%s: %@", __FUNCTION__, notification.userInfo);
 }
 
 - (void)textDidEndEditing:(NSNotification *)notification {
