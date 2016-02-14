@@ -55,6 +55,10 @@
     // Update the view, if already loaded.
 }
 
+- (BOOL)tokenSelectionActive {
+    return _selectedTokens.count > 0;
+}
+
 - (void)textViewDidChangeSelection:(NSNotification *)notification {
 //    NSLog(@"%s: %@", __FUNCTION__, notification.userInfo);
 }
@@ -80,7 +84,6 @@
 //    NSLog(@"%s", __FUNCTION__);
     
     [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
-    [_selectedTokens removeAllIndexes];
 
     if(_tokens.count > 0) {
         if(jumpToBeginning) {

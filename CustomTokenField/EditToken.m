@@ -71,11 +71,17 @@
     else if(theEvent.keyCode == 123 || theEvent.keyCode == 124) { // TODO: add other movement keys
         BOOL extendSelection = (theEvent.modifierFlags & NSShiftKeyMask) != 0;
         
-        if(!extendSelection) {
+        if(theEvent.keyCode == 123 && !extendSelection && _viewController.tokenSelectionActive) {
             [_viewController clearCursorSelection];
+            [_viewController cursorLeftFrom:self jumpToBeginning:commandKeyPressed extendSelection:NO];
         }
-        
-        [super keyDown:theEvent];
+        else {
+            if(!extendSelection) {
+                [_viewController clearCursorSelection];
+            }
+            
+            [super keyDown:theEvent];
+        }
     }
     else {
         [super keyDown:theEvent];

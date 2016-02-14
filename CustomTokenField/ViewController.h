@@ -14,6 +14,8 @@
 
 @property IBOutlet NSScrollView *scrollView;
 
+@property (readonly) BOOL tokenSelectionActive;
+
 - (void)editToken:(EditToken*)sender;
 - (void)cursorLeftFrom:(EditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection;
 - (void)clearCursorSelection;
