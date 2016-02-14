@@ -61,12 +61,19 @@
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-
     if(theEvent.keyCode == 123 && self.selectedRange.location == 0) {
-        NSUInteger flags = theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask;
-        BOOL extendSelection = (flags & NSShiftKeyMask) != 0;
+        BOOL extendSelection = (theEvent.modifierFlags & NSShiftKeyMask) != 0;
 
         [_viewController cursorLeftFrom:self extendSelection:extendSelection];
+    }
+    else if(theEvent.keyCode == 123 || theEvent.keyCode == 124) { // TODO: add other movement keys
+        BOOL extendSelection = (theEvent.modifierFlags & NSShiftKeyMask) != 0;
+        
+        if(!extendSelection) {
+            [_viewController clearCursorSelection];
+        }
+        
+        [super keyDown:theEvent];
     }
     else {
         [super keyDown:theEvent];

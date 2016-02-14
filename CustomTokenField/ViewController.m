@@ -107,6 +107,16 @@
     }
 }
 
+- (void)clearCursorSelection {
+    [_selectedTokens enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        _tokens[idx].selected = NO;
+    }];
+    
+    [_selectedTokens removeAllIndexes];
+
+    _extendingSelectionFromText = NO;
+}
+
 - (void)keyDown:(NSEvent *)theEvent {
 //    NSLog(@"%s: %@", __FUNCTION__, theEvent);
     
@@ -116,11 +126,7 @@
             BOOL extendSelection = (flags & NSShiftKeyMask) != 0;
 
             if(!extendSelection) {
-                [_selectedTokens enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                    _tokens[idx].selected = NO;
-                }];
-                
-                [_selectedTokens removeAllIndexes];
+                [self clearCursorSelection];
                 
                 if(_currentToken == 0) {
                     _tokens[_currentToken].selected = YES;
@@ -129,8 +135,6 @@
                 }
 
                 [_editToken setSelectedRange:NSMakeRange(0, 0)];
-                
-                _extendingSelectionFromText = NO;
             }
             else if(_selectedTokens.count > 1 && _currentToken == _selectedTokens.lastIndex) {
                 _tokens[_currentToken].selected = NO;
@@ -150,13 +154,7 @@
             BOOL extendSelection = (flags & NSShiftKeyMask) != 0;
             
             if(!extendSelection) {
-                [_selectedTokens enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                    _tokens[idx].selected = NO;
-                }];
-                
-                [_selectedTokens removeAllIndexes];
-
-                _extendingSelectionFromText = NO;
+                [self clearCursorSelection];
             }
             else if(_selectedTokens.count > 1 && _currentToken == _selectedTokens.firstIndex) {
                 _tokens[_currentToken].selected = NO;
