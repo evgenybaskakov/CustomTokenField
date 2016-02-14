@@ -185,8 +185,14 @@
                     }
                     
                     NSRange range = _editToken.selectedRange;
-                    [_editToken setSelectedRange:NSMakeRange(0, 0)];
-                    [_editToken setSelectedRange:range];
+                    
+                    if(range.length == 0) {
+                        [_editToken setSelectedRange:NSMakeRange(0, 1)];
+                    }
+                    else {
+                        [_editToken setSelectedRange:NSMakeRange(0, 0)];
+                        [_editToken setSelectedRange:range];
+                    }
                 }
             }
         }
