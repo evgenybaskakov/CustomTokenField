@@ -78,32 +78,52 @@
     _editingText = YES;
 }
 
-- (void)cursorLeftFrom:(EditToken*)sender extendSelection:(BOOL)extendSelection {
-    NSLog(@"%s", __FUNCTION__);
+- (void)cursorLeftFrom:(EditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection {
+//    NSLog(@"%s", __FUNCTION__);
     
     [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
     [_selectedTokens removeAllIndexes];
 
     if(_tokens.count > 0) {
-        _currentToken = _tokens.count-1;
-        
-        [_selectedTokens addIndex:_currentToken];
-        
-        for(Token *token in _tokens) {
-            token.selected = NO;
-        }
-        
-        _tokens[_currentToken].selected = YES;
-        
-        _editingText = NO;
+        if(jumpToBeginning) {
+            if(!extendSelection) {
+                [self clearCursorSelection];
+                
+                _currentToken = 0;
 
-        [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
+                [_selectedTokens addIndex:_currentToken];
+                _tokens[_currentToken].selected = YES;
+            }
+            else {
+                for(NSInteger i = 0; i < _tokens.count; i++) {
+                    [_selectedTokens addIndex:i];
+
+                    _tokens[i].selected = YES;
+                }
+                
+                _currentToken = 0;
+
+                NSRange range = _editToken.selectedRange;
+                [_editToken setSelectedRange:NSMakeRange(0, range.location + range.length)];
+            }
+        }
+        else {
+            [self clearCursorSelection];
+
+            _currentToken = _tokens.count-1;
+            
+            [_selectedTokens addIndex:_currentToken];
+            _tokens[_currentToken].selected = YES;
+        }
 
         if(!extendSelection) {
             [_editToken setSelectedRange:NSMakeRange(0, 0)];
         }
+
+        [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
         
         _extendingSelectionFromText = extendSelection;
+        _editingText = NO;
     }
 }
 
@@ -182,6 +202,7 @@
         else if(theEvent.keyCode == 124) {
             NSUInteger flags = theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask;
             BOOL extendSelection = (flags & NSShiftKeyMask) != 0;
+            BOOL selectionWasExtendingFromText = _extendingSelectionFromText;
             
             if(!extendSelection) {
                 [self clearCursorSelection];
@@ -227,37 +248,38 @@
                 }
             }
             else {
-                if(_currentToken >= 0 && _currentToken < _tokens.count-1) {
-                    _tokens[++_currentToken].selected = YES;
+                if(selectionWasExtendingFromText && !extendSelection) {
+                    NSRange range = _editToken.selectedRange;
 
-                    [_selectedTokens addIndex:_currentToken];
-
-                    [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
-                }
-                else if(_currentToken == _tokens.count-1) {
                     [_tokenFieldView.window makeFirstResponder:_editToken];
+                    [_editToken setSelectedRange:NSMakeRange(range.location + range.length, 0)];
+                }
+                else {
+                    if(_currentToken >= 0 && _currentToken < _tokens.count-1) {
+                        _tokens[++_currentToken].selected = YES;
 
-                    if(!extendSelection) {
-                        _currentToken = -1;
-                        
-                        [_editToken setSelectedRange:NSMakeRange(0, 0)];
+                        [_selectedTokens addIndex:_currentToken];
+
+                        [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
                     }
-                    else {
-                        if(_extendingSelectionFromText) {
-                            _tokens[_currentToken].selected = NO;
-                            [_selectedTokens removeIndex:_currentToken];
+                    else if(_currentToken == _tokens.count-1) {
+                        [_tokenFieldView.window makeFirstResponder:_editToken];
 
-                            _extendingSelectionFromText = NO;
-                        }
-                        
-                        NSRange range = _editToken.selectedRange;
-                        
-                        if(range.length == 0) {
-                            [_editToken setSelectedRange:NSMakeRange(0, 1)];
+                        if(!extendSelection) {
+                            _currentToken = -1;
+                            
+                            [_editToken setSelectedRange:NSMakeRange(0, 0)];
                         }
                         else {
-                            [_editToken setSelectedRange:NSMakeRange(0, 0)];
-                            [_editToken setSelectedRange:range];
+                            NSRange range = _editToken.selectedRange;
+                            
+                            if(range.length == 0) {
+                                [_editToken setSelectedRange:NSMakeRange(0, 1)];
+                            }
+                            else {
+                                [_editToken setSelectedRange:NSMakeRange(0, 0)];
+                                [_editToken setSelectedRange:range];
+                            }
                         }
                     }
                 }
