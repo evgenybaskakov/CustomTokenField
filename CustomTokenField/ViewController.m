@@ -69,6 +69,7 @@
 
 - (void)textDidChange:(NSNotification *)notification {
 //    NSLog(@"%s: %@", __FUNCTION__, notification.userInfo);
+    [self clearCursorSelection];
 }
 
 - (void)editToken:(EditToken*)sender {
@@ -123,6 +124,13 @@
     }
 }
 
+
+// Steps to reproduce the selection bug:
+// 1) Select Token2
+// 2) Command-Shift-Left
+// 3) Command-Shift-Right
+// 4) Left
+
 - (void)clearCursorSelection {
     [_selectedTokens enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         _tokens[idx].selected = NO;
@@ -136,9 +144,12 @@
 - (void)keyDown:(NSEvent *)theEvent {
 //    NSLog(@"%s: %@", __FUNCTION__, theEvent);
     
-    if(theEvent.keyCode == 123) {
+    if(theEvent.keyCode == 123) { // Left
         NSUInteger flags = theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask;
         BOOL extendSelection = (flags & NSShiftKeyMask) != 0;
+        BOOL selectionWasExtendingFromText = _extendingSelectionFromText;
+        NSUInteger oldSelectionLen = _selectedTokens.count;
+        NSInteger oldFirstToken = (oldSelectionLen > 0? _selectedTokens.firstIndex : -1);
 
         if(!extendSelection) {
             [self clearCursorSelection];
@@ -185,19 +196,24 @@
                 
                 _tokens[_currentToken].selected = YES;
             }
+            else if(!extendSelection && (oldSelectionLen > 1 || selectionWasExtendingFromText)) {
+                _currentToken = oldFirstToken;
+                _tokens[_currentToken].selected = YES;
+            }
             else {
                 _tokens[--_currentToken].selected = YES;
             }
 
             [_selectedTokens addIndex:_currentToken];
-
             [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
         }
     }
-    else if(theEvent.keyCode == 124) {
+    else if(theEvent.keyCode == 124) { // Right
         NSUInteger flags = theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask;
         BOOL extendSelection = (flags & NSShiftKeyMask) != 0;
         BOOL selectionWasExtendingFromText = _extendingSelectionFromText;
+        NSUInteger oldSelectionLen = _selectedTokens.count;
+        NSInteger oldLastToken = (oldSelectionLen > 0? _selectedTokens.lastIndex : -1);
         
         if(!extendSelection) {
             [self clearCursorSelection];
@@ -250,11 +266,15 @@
                 [_editToken setSelectedRange:NSMakeRange(range.location + range.length, 0)];
             }
             else {
-                if(_currentToken >= 0 && _currentToken < _tokens.count-1) {
-                    _tokens[++_currentToken].selected = YES;
-
+                if(!extendSelection && oldSelectionLen > 1) {
+                    _currentToken = oldLastToken;
+                    _tokens[_currentToken].selected = YES;
                     [_selectedTokens addIndex:_currentToken];
-
+                    [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
+                }
+                else if(_currentToken >= 0 && _currentToken < _tokens.count-1) {
+                    _tokens[++_currentToken].selected = YES;
+                    [_selectedTokens addIndex:_currentToken];
                     [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
                 }
                 else if(_currentToken == _tokens.count-1) {
