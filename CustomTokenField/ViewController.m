@@ -135,20 +135,25 @@
             }
         }
         else if(theEvent.keyCode == 124) {
+            NSUInteger flags = theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask;
+            
+            if((flags & NSShiftKeyMask) == 0) {
+                [_selectedTokens enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+                    _tokens[idx].selected = NO;
+                }];
+                
+                [_selectedTokens removeAllIndexes];
+            }
+
             if(_currentToken >= 0 && _currentToken < _tokens.count-1) {
-                _tokens[_currentToken].selected = NO;
                 _tokens[++_currentToken].selected = YES;
 
-                [_selectedTokens removeAllIndexes];
                 [_selectedTokens addIndex:_currentToken];
 
                 [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
             }
             else if(_currentToken == _tokens.count-1) {
-                _tokens[_currentToken].selected = NO;
                 _currentToken = -1;
-
-                [_selectedTokens removeAllIndexes];
 
                 [_tokenFieldView.window makeFirstResponder:_editToken];
                 [_editToken setSelectedRange:NSMakeRange(0, 0)];
