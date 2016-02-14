@@ -61,10 +61,12 @@
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-    NSLog(@"%s: %@", __FUNCTION__, theEvent);
 
     if(theEvent.keyCode == 123 && self.selectedRange.location == 0) {
-        [_viewController cursorLeftFrom:self];
+        NSUInteger flags = theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask;
+        BOOL extendSelection = (flags & NSShiftKeyMask) != 0;
+
+        [_viewController cursorLeftFrom:self extendSelection:extendSelection];
     }
     else {
         [super keyDown:theEvent];

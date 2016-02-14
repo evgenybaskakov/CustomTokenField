@@ -16,7 +16,7 @@
 @property (readonly) BOOL editingText;
 
 - (void)editToken:(EditToken*)sender;
-- (void)cursorLeftFrom:(EditToken*)sender;
+- (void)cursorLeftFrom:(EditToken*)sender extendSelection:(BOOL)extendSelection;
 
 @end
 

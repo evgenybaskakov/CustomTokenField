@@ -58,12 +58,12 @@
 }
 
 - (void)textDidEndEditing:(NSNotification *)notification {
-    NSLog(@"%s: %@", __FUNCTION__, notification.userInfo);
+//    NSLog(@"%s: %@", __FUNCTION__, notification.userInfo);
     _editingText = YES;
 }
 
 - (void)textDidBeginEditing:(NSNotification *)notification {
-    NSLog(@"%s: %@", __FUNCTION__, notification.userInfo);
+//    NSLog(@"%s: %@", __FUNCTION__, notification.userInfo);
     _editingText = NO;
 }
 
@@ -76,7 +76,7 @@
     _editingText = YES;
 }
 
-- (void)cursorLeftFrom:(EditToken*)sender {
+- (void)cursorLeftFrom:(EditToken*)sender extendSelection:(BOOL)extendSelection {
     NSLog(@"%s", __FUNCTION__);
     
     [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
@@ -96,21 +96,41 @@
         _editingText = NO;
 
         [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
+
+        if(!extendSelection) {
+            [_editToken setSelectedRange:NSMakeRange(0, 0)];
+        }
     }
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-    NSLog(@"%s: %@", __FUNCTION__, theEvent);
+//    NSLog(@"%s: %@", __FUNCTION__, theEvent);
     
     if(!_editingText) {
         if(theEvent.keyCode == 123) {
-            if(_currentToken > 0) {
-                _tokens[_currentToken].selected = NO;
-                _tokens[--_currentToken].selected = YES;
+            NSUInteger flags = theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask;
 
+            if((flags & NSShiftKeyMask) == 0) {
+                [_selectedTokens enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+                    _tokens[idx].selected = NO;
+                }];
+                
                 [_selectedTokens removeAllIndexes];
-                [_selectedTokens addIndex:_currentToken];
+                
+                if(_currentToken == 0) {
+                    _tokens[_currentToken].selected = YES;
 
+                    [_selectedTokens addIndex:_currentToken];
+                }
+
+                [_editToken setSelectedRange:NSMakeRange(0, 0)];
+            }
+
+            if(_currentToken > 0) {
+                _tokens[--_currentToken].selected = YES;
+                
+                [_selectedTokens addIndex:_currentToken];
+                
                 [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
             }
         }
