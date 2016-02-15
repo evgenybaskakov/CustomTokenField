@@ -108,6 +108,16 @@
                 [_editToken setSelectedRange:NSMakeRange(0, range.location + range.length)];
             }
         }
+        else if(!extendSelection && _selectedTokens.count > 1) {
+            NSInteger firstToken = _selectedTokens.firstIndex;
+            
+            [self clearCursorSelection];
+            
+            _currentToken = firstToken;
+            
+            [_selectedTokens addIndex:_currentToken];
+            _tokens[_currentToken].selected = YES;
+        }
         else {
             [self clearCursorSelection];
 
@@ -127,12 +137,20 @@
     }
 }
 
+- (void)selectAll:(id)sender {
+    [_selectedTokens addIndexesInRange:NSMakeRange(0, _tokens.count)];
 
-// Steps to reproduce the selection bug:
-// 1) Select Token2
-// 2) Command-Shift-Left
-// 3) Command-Shift-Right
-// 4) Left
+    for(Token *token in _tokens) {
+        token.selected = YES;
+    }
+
+    if(_tokens.count > 0) {
+        _currentToken = 0;
+    }
+
+    _extendingSelectionFromText = YES;
+    [_editToken setSelectedRange:NSMakeRange(0, _editToken.string.length)];
+}
 
 - (void)clearCursorSelection {
     [_selectedTokens enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {

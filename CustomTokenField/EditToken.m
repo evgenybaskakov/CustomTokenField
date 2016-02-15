@@ -60,6 +60,12 @@
     }
 }
 
+- (void)selectAll:(id)sender {
+    [super selectAll:sender];
+    
+    [_viewController selectAll:self];
+}
+
 - (void)keyDown:(NSEvent *)theEvent {
     BOOL commandKeyPressed = (theEvent.modifierFlags & NSCommandKeyMask) != 0;
 
