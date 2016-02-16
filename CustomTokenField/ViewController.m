@@ -323,4 +323,16 @@
     }
 }
 
+- (void)tokenMouseDown:(Token*)token event:(NSEvent *)theEvent {
+    [self clearCursorSelection];
+    
+    _currentToken = [_tokens indexOfObject:token];
+    
+    token.selected = YES;
+    
+    [_selectedTokens addIndex:_currentToken];
+    [_editToken setSelectedRange:NSMakeRange(0, 0)];
+    [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
+}
+
 @end

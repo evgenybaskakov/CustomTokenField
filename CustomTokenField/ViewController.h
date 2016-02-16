@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class Token;
 @class EditToken;
 
 @interface ViewController : NSViewController<NSTextViewDelegate>
@@ -19,6 +20,7 @@
 - (void)editToken:(EditToken*)sender;
 - (void)cursorLeftFrom:(EditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection;
 - (void)clearCursorSelection;
+- (void)tokenMouseDown:(Token*)token event:(NSEvent *)theEvent;
 
 @end
 

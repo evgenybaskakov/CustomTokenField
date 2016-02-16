@@ -66,6 +66,12 @@
     [_viewController selectAll:self];
 }
 
+- (void)mouseDown:(NSEvent *)theEvent {
+    [_viewController clearCursorSelection];
+
+    [super mouseDown:theEvent];
+}
+
 - (void)keyDown:(NSEvent *)theEvent {
     BOOL commandKeyPressed = (theEvent.modifierFlags & NSCommandKeyMask) != 0;
 

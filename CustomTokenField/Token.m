@@ -55,4 +55,8 @@
     }
 }
 
+- (void)mouseDown:(NSEvent *)theEvent {
+    [_viewController tokenMouseDown:self event:theEvent];
+}
+
 @end
