@@ -21,6 +21,7 @@
 - (void)cursorLeftFrom:(EditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection;
 - (void)clearCursorSelection;
 - (void)tokenMouseDown:(Token*)token event:(NSEvent *)theEvent;
+- (void)deleteSelectedTokensAndText;
 
 @end
 

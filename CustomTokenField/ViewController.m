@@ -79,7 +79,7 @@
 }
 
 - (void)editToken:(EditToken*)sender {
-    NSLog(@"%s", __FUNCTION__);
+//    NSLog(@"%s", __FUNCTION__);
 }
 
 - (void)cursorLeftFrom:(EditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection {
@@ -136,6 +136,10 @@
         [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
         
         _extendingSelectionFromText = extendSelection;
+    }
+    else {
+        [_tokenFieldView.window makeFirstResponder:_editToken];
+        [_editToken setSelectedRange:NSMakeRange(0, 0)];
     }
 }
 
@@ -344,7 +348,11 @@
     [_selectedTokens removeAllIndexes];
     _currentToken = -1;
     
+    [_editToken deleteToBeginningOfLine:self];
+    
     [self adjustTokenFrames];
+
+    [_tokenFieldView.window makeFirstResponder:_editToken];
 }
 
 - (void)adjustTokenFrames {

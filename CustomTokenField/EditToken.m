@@ -75,15 +75,17 @@
 - (void)keyDown:(NSEvent *)theEvent {
     BOOL commandKeyPressed = (theEvent.modifierFlags & NSCommandKeyMask) != 0;
 
-    if(theEvent.keyCode == 123 && (self.selectedRange.location == 0 || commandKeyPressed)) {
+    const NSUInteger codeLeft = 123, codeRight = 124, codeDelete = 51;
+    
+    if(theEvent.keyCode == codeLeft && (self.selectedRange.location == 0 || commandKeyPressed)) {
         BOOL extendSelection = (theEvent.modifierFlags & NSShiftKeyMask) != 0;
 
         [_viewController cursorLeftFrom:self jumpToBeginning:commandKeyPressed extendSelection:extendSelection];
     }
-    else if(theEvent.keyCode == 123 || theEvent.keyCode == 124) { // TODO: add other movement keys
+    else if(theEvent.keyCode == codeLeft || theEvent.keyCode == codeRight) { // TODO: add other movement keys
         BOOL extendSelection = (theEvent.modifierFlags & NSShiftKeyMask) != 0;
         
-        if(theEvent.keyCode == 123 && !extendSelection && _viewController.tokenSelectionActive) {
+        if(theEvent.keyCode == codeLeft && !extendSelection && _viewController.tokenSelectionActive) {
             [_viewController clearCursorSelection];
             [_viewController cursorLeftFrom:self jumpToBeginning:commandKeyPressed extendSelection:NO];
         }
@@ -92,6 +94,20 @@
                 [_viewController clearCursorSelection];
             }
             
+            [super keyDown:theEvent];
+        }
+    }
+    else if(theEvent.keyCode == codeDelete) {
+        NSRange selection = self.selectedRange;
+
+        if(selection.location == 0 && selection.length == 0) {
+            [_viewController clearCursorSelection];
+            [_viewController cursorLeftFrom:self jumpToBeginning:commandKeyPressed extendSelection:NO];
+        }
+        else if(selection.location == 0) {
+            [_viewController deleteSelectedTokensAndText];
+        }
+        else {
             [super keyDown:theEvent];
         }
     }
