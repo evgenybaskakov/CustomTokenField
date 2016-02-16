@@ -75,7 +75,7 @@
 
 - (void)textDidChange:(NSNotification *)notification {
 //    NSLog(@"%s: %@", __FUNCTION__, notification.userInfo);
-    [self clearCursorSelection];
+    [self deleteSelectedTokens];
 }
 
 - (void)editToken:(EditToken*)sender {
@@ -339,19 +339,29 @@
     }
 }
 
+- (void)deleteSelectedTokens {
+    [self deleteSelectedTokensAndText:NO];
+}
+
 - (void)deleteSelectedTokensAndText {
+    [self deleteSelectedTokensAndText:YES];
+}
+
+- (void)deleteSelectedTokensAndText:(BOOL)deleteText {
     [_selectedTokens enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         [_tokens[idx] removeFromSuperview];
     }];
-
+    
     [_tokens removeObjectsAtIndexes:_selectedTokens];
     [_selectedTokens removeAllIndexes];
     _currentToken = -1;
     
-    [_editToken deleteToBeginningOfLine:self];
+    if(deleteText) {
+        [_editToken deleteToBeginningOfLine:self];
+    }
     
     [self adjustTokenFrames];
-
+    
     [_tokenFieldView.window makeFirstResponder:_editToken];
 }
 
