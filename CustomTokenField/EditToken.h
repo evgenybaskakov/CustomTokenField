@@ -12,6 +12,6 @@
 
 @interface EditToken : NSTextView
 
-+ (EditToken*)createEditToken:(ViewController*)viewController rect:(NSRect)rect;
++ (EditToken*)createEditToken:(ViewController*)viewController;
 
 @end

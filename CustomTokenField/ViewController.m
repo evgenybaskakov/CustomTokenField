@@ -35,17 +35,19 @@
     
     [_scrollView setDocumentView:_tokenFieldView];
     
-    [_tokens addObject:[Token createToken:@"Token1" viewController:self rect:NSMakeRect(0, 1, 48, _tokenFieldView.frame.size.height-2)]];
-    [_tokens addObject:[Token createToken:@"Token2" viewController:self rect:NSMakeRect(((NSView*)_tokens.lastObject).frame.origin.x + ((NSView*)_tokens.lastObject).frame.size.width + 2, 1, 48, _tokenFieldView.frame.size.height-2)]];
-    [_tokens addObject:[Token createToken:@"Token3" viewController:self rect:NSMakeRect(((NSView*)_tokens.lastObject).frame.origin.x + ((NSView*)_tokens.lastObject).frame.size.width + 2, 1, 48, _tokenFieldView.frame.size.height-2)]];
-    [_tokens addObject:[Token createToken:@"Token4" viewController:self rect:NSMakeRect(((NSView*)_tokens.lastObject).frame.origin.x + ((NSView*)_tokens.lastObject).frame.size.width + 2, 1, 48, _tokenFieldView.frame.size.height-2)]];
+    [_tokens addObject:[Token createToken:@"Token1" viewController:self]];
+    [_tokens addObject:[Token createToken:@"Token2" viewController:self]];
+    [_tokens addObject:[Token createToken:@"Token3" viewController:self]];
+    [_tokens addObject:[Token createToken:@"Token4" viewController:self]];
 
+    _editToken = [EditToken createEditToken:self];
+    
     for(NSView *token in _tokens) {
         [_tokenFieldView addSubview:token];
     }
-
-    _editToken = [EditToken createEditToken:self rect:NSMakeRect(((NSView*)_tokens.lastObject).frame.origin.x + ((NSView*)_tokens.lastObject).frame.size.width, -4, CGFLOAT_MAX, _tokenFieldView.frame.size.height)];
     
+    [self adjustTokenFrames];
+
     [_tokenFieldView addSubview:_editToken];
 }
 
@@ -321,6 +323,58 @@
             }
         }
     }
+    else {
+        unichar key = [[theEvent charactersIgnoringModifiers] characterAtIndex:0];
+
+        if(key == NSDeleteCharacter) {
+            [self deleteSelectedTokensAndText];
+        }
+        else {
+            [super keyDown:theEvent];
+        }
+    }
+}
+
+- (void)deleteSelectedTokensAndText {
+    [_selectedTokens enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [_tokens[idx] removeFromSuperview];
+    }];
+
+    [_tokens removeObjectsAtIndexes:_selectedTokens];
+    [_selectedTokens removeAllIndexes];
+    _currentToken = -1;
+    
+    [self adjustTokenFrames];
+}
+
+- (void)adjustTokenFrames {
+    for(NSUInteger i = 0; i < _tokens.count; i++) {
+        Token *token = _tokens[i];
+        
+        CGFloat xpos;
+        
+        if(i == 0) {
+            xpos = 0;
+        }
+        else {
+            Token *prevToken = (Token*)_tokens[i-1];
+            xpos = prevToken.frame.origin.x + prevToken.frame.size.width + 2;
+        }
+        
+        [token setFrame:NSMakeRect(xpos, 1, 48, _tokenFieldView.frame.size.height-2)];
+    }
+
+    CGFloat xpos;
+    
+    if(_tokens.count == 0) {
+        xpos = 0;
+    }
+    else {
+        Token *prevToken = (Token*)_tokens.lastObject;
+        xpos = prevToken.frame.origin.x + prevToken.frame.size.width;
+    }
+
+    _editToken.frame = NSMakeRect(xpos, -4, CGFLOAT_MAX, _tokenFieldView.frame.size.height);
 }
 
 - (void)tokenMouseDown:(Token*)token event:(NSEvent *)theEvent {

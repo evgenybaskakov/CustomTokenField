@@ -13,8 +13,8 @@
     ViewController *__weak _viewController;
 }
 
-+ (EditToken*)createEditToken:(ViewController*)viewController rect:(NSRect)rect {
-    EditToken *editToken = [[EditToken alloc] initWithFrame:rect viewController:viewController];
++ (EditToken*)createEditToken:(ViewController*)viewController {
+    EditToken *editToken = [[EditToken alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController];
 
     editToken.focusRingType = NSFocusRingTypeNone;
     editToken.delegate = viewController;

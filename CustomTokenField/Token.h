@@ -14,6 +14,6 @@
 
 @property (nonatomic) BOOL selected;
 
-+ (Token*)createToken:(NSString*)text viewController:(ViewController*)viewController rect:(NSRect)rect;
++ (Token*)createToken:(NSString*)text viewController:(ViewController*)viewController;
 
 @end

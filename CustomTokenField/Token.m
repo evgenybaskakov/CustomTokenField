@@ -13,8 +13,8 @@
     ViewController *__weak _viewController;
 }
 
-+ (Token*)createToken:(NSString*)text viewController:(ViewController*)viewController rect:(NSRect)rect {
-    Token *token = [[Token alloc] initWithFrame:rect viewController:viewController];
++ (Token*)createToken:(NSString*)text viewController:(ViewController*)viewController {
+    Token *token = [[Token alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController];
     
     token.selected = NO;
     token.focusRingType = NSFocusRingTypeNone;
@@ -25,7 +25,7 @@
     token.stringValue = text;
     token.layer.cornerRadius = 5;
     token.layer.masksToBounds = YES;
-    [token setFont:[NSFont systemFontOfSize:11]];
+    token.font = [NSFont systemFontOfSize:11];
     
     return token;
 }
