@@ -170,8 +170,10 @@
 
 - (void)keyDown:(NSEvent *)theEvent {
 //    NSLog(@"%s: %@", __FUNCTION__, theEvent);
+
+    const NSUInteger codeLeft = 123, codeRight = 124, codeDelete = 51, codeForwardDelete = 117;
     
-    if(theEvent.keyCode == 123) { // Left
+    if(theEvent.keyCode == codeLeft) { // Left
         NSUInteger flags = theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask;
         BOOL extendSelection = (flags & NSShiftKeyMask) != 0;
         BOOL selectionWasExtendingFromText = _extendingSelectionFromText;
@@ -235,7 +237,7 @@
             [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
         }
     }
-    else if(theEvent.keyCode == 124) { // Right
+    else if(theEvent.keyCode == codeRight) { // Right
         NSUInteger flags = theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask;
         BOOL extendSelection = (flags & NSShiftKeyMask) != 0;
         BOOL selectionWasExtendingFromText = _extendingSelectionFromText;
@@ -328,9 +330,7 @@
         }
     }
     else {
-        unichar key = [[theEvent charactersIgnoringModifiers] characterAtIndex:0];
-
-        if(key == NSDeleteCharacter) {
+        if(theEvent.keyCode == codeDelete || theEvent.keyCode == codeForwardDelete) {
             [self deleteSelectedTokensAndText];
         }
         else {

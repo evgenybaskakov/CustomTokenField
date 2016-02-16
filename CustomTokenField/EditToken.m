@@ -75,7 +75,7 @@
 - (void)keyDown:(NSEvent *)theEvent {
     BOOL commandKeyPressed = (theEvent.modifierFlags & NSCommandKeyMask) != 0;
 
-    const NSUInteger codeLeft = 123, codeRight = 124, codeDelete = 51;
+    const NSUInteger codeLeft = 123, codeRight = 124, codeDelete = 51, codeForwardDelete = 117;
     
     if(theEvent.keyCode == codeLeft && (self.selectedRange.location == 0 || commandKeyPressed)) {
         BOOL extendSelection = (theEvent.modifierFlags & NSShiftKeyMask) != 0;
@@ -97,7 +97,7 @@
             [super keyDown:theEvent];
         }
     }
-    else if(theEvent.keyCode == codeDelete) {
+    else if(theEvent.keyCode == codeDelete || (theEvent.keyCode == codeForwardDelete && _viewController.tokenSelectionActive)) {
         NSRange selection = self.selectedRange;
 
         if(selection.location == 0 && selection.length == 0) {
@@ -112,6 +112,7 @@
         }
     }
     else {
+        NSLog(@"theEvent: %@", theEvent);
         [super keyDown:theEvent];
     }
 }
