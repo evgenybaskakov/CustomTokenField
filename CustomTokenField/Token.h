@@ -12,8 +12,13 @@
 
 @interface Token : NSView
 
+@property (readonly) NSString *tokenName;
+@property (readonly) NSString *contentsText;
+@property (readonly) id target;
+@property (readonly) SEL selector;
+
 @property (nonatomic) BOOL selected;
 
-+ (Token*)createToken:(NSString*)text1 text2:(NSString*)text2 viewController:(ViewController*)viewController;
++ (Token*)createToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector viewController:(ViewController*)viewController;
 
 @end

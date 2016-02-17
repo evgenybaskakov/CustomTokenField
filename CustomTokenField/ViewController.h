@@ -17,6 +17,7 @@
 
 @property (readonly) BOOL tokenSelectionActive;
 
+- (void)addToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector;
 - (void)editToken:(EditToken*)sender;
 - (void)cursorLeftFrom:(EditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection;
 - (void)clearCursorSelection;

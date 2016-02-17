@@ -15,10 +15,10 @@
     NSTextField *_textField2;
 }
 
-+ (Token*)createToken:(NSString*)text1 text2:(NSString*)text2 viewController:(ViewController*)viewController {
++ (Token*)createToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector viewController:(ViewController*)viewController {
     NSTextField *textField1 = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
-    textField1.stringValue = text1;
-    textField1.font = [NSFont systemFontOfSize:12];
+    textField1.stringValue = tokenName;
+//    textField1.font = [NSFont systemFontOfSize:11];
     textField1.frame = NSMakeRect(0, 0, textField1.attributedStringValue.size.width, 15);
     textField1.selectable = NO;
     textField1.editable = NO;
@@ -26,28 +26,31 @@
     textField1.backgroundColor = [NSColor clearColor];
 
     NSTextField *textField2 = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
-    textField2.stringValue = text2;
-    textField2.font = [NSFont systemFontOfSize:12];
+    textField2.stringValue = contentsText;
+//    textField2.font = [NSFont systemFontOfSize:11];
     textField2.frame = NSMakeRect(0, 0, textField2.attributedStringValue.size.width, 15);
     textField2.selectable = NO;
     textField2.editable = NO;
     textField2.bordered = NO;
     textField2.backgroundColor = [NSColor clearColor];
 
-    Token *token = [[Token alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController textField1:textField1 textField2:textField2];
+    Token *token = [[Token alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController textField1:textField1 textField2:textField2 target:target selector:selector];
     
     token.selected = NO;
 
     return token;
 }
 
-- (id)initWithFrame:(NSRect)frameRect viewController:(ViewController*)viewController textField1:(NSTextField*)textField1 textField2:(NSTextField*)textField2 {
+- (id)initWithFrame:(NSRect)frameRect viewController:(ViewController*)viewController textField1:(NSTextField*)textField1 textField2:(NSTextField*)textField2 target:(id)target selector:(SEL)selector {
     self = [super initWithFrame:frameRect];
     
     if(self) {
         _viewController = viewController;
         _textField1 = textField1;
         _textField2 = textField2;
+        
+        _target = target;
+        _selector = selector;
         
         [self addSubview:_textField1];
         [self addSubview:_textField2];
@@ -61,6 +64,14 @@
     }
     
     return self;
+}
+
+- (NSString*)tokenName {
+    return _textField1.stringValue;
+}
+
+- (NSString*)contentsText {
+    return _textField2.stringValue;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -125,6 +136,8 @@
 
 - (void)mouseDown:(NSEvent *)theEvent {
     [_viewController tokenMouseDown:self event:theEvent];
+    
+    [_target performSelector:_selector withObject:self afterDelay:0.0];
 }
 
 @end

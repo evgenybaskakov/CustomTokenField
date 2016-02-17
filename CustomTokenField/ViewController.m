@@ -35,26 +35,43 @@
     
     [_scrollView setDocumentView:_tokenFieldView];
     
-    [_tokens addObject:[Token createToken:@"Token1" text2:@"L111" viewController:self]];
-    [_tokens addObject:[Token createToken:@"Token2" text2:@"L222" viewController:self]];
-    [_tokens addObject:[Token createToken:@"Token3" text2:@"L333" viewController:self]];
-    [_tokens addObject:[Token createToken:@"Token4" text2:@"L444" viewController:self]];
-
-    _editToken = [EditToken createEditToken:self];
+    [self addToken:@"Token1" contentsText:@"Blah!!" target:self selector:@selector(tokenAction:)];
+    [self addToken:@"Token2" contentsText:@"Foo" target:self selector:@selector(tokenAction:)];
+    [self addToken:@"Token3" contentsText:@"Bar" target:self selector:@selector(tokenAction:)];
+    [self addToken:@"Token4" contentsText:@"Everything's weird" target:self selector:@selector(tokenAction:)];
     
-    for(NSView *token in _tokens) {
-        [_tokenFieldView addSubview:token];
-    }
+    _editToken = [EditToken createEditToken:self];
+    [_tokenFieldView addSubview:_editToken];
     
     [self adjustTokenFrames];
+}
 
-    [_tokenFieldView addSubview:_editToken];
+- (void)tokenAction:(id)sender {
+    NSMenu *theMenu = [[NSMenu alloc] initWithTitle:@"Contextual Menu"];
+    
+    [theMenu addItemWithTitle:@"Edit" action:@selector(blah:) keyEquivalent:@""];
+    [theMenu addItemWithTitle:@"Delete" action:@selector(blah:) keyEquivalent:@""];
+    
+    [theMenu popUpMenuPositioningItem:nil atLocation:[NSEvent mouseLocation] inView:nil];
+}
+
+- (void)blah:(id)sender {
+    NSLog(@"Blah!");
 }
 
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
 
     // Update the view, if already loaded.
+}
+
+- (void)addToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector {
+    Token *token = [Token createToken:tokenName contentsText:contentsText target:target selector:selector viewController:self];
+    
+    [_tokens addObject:token];
+    [_tokenFieldView addSubview:token];
+
+    [self adjustTokenFrames];
 }
 
 - (BOOL)tokenSelectionActive {
@@ -400,7 +417,7 @@
         _editToken.textContainer.size = NSMakeSize(_editToken.attributedString.size.width + delta, _editToken.textContainer.size.height);
     }
     
-    _editToken.frame = NSMakeRect(xpos, -3, _editToken.textContainer.size.width, _tokenFieldView.frame.size.height);
+    _editToken.frame = NSMakeRect(xpos, -4, _editToken.textContainer.size.width, _tokenFieldView.frame.size.height);
     
     _tokenFieldView.frame = NSMakeRect(_tokenFieldView.frame.origin.x, _tokenFieldView.frame.origin.y, xpos + _editToken.frame.size.width, _tokenFieldView.frame.size.height);
 }
