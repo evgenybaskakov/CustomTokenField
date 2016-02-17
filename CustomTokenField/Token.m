@@ -66,19 +66,21 @@
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
     
-    NSColor *fillColor;
+    NSColor *fillColor1, *fillColor2;
     
     if(_selected) {
         _textField1.textColor = [NSColor whiteColor];
         _textField2.textColor = [NSColor whiteColor];
         
-        fillColor = [NSColor colorWithCalibratedWhite:0.5 alpha:1.0];
+        fillColor1 = [NSColor colorWithCalibratedWhite:0.5 alpha:1.0];
+        fillColor2 = [NSColor colorWithCalibratedWhite:0.5 alpha:1.0];
     }
     else {
         _textField1.textColor = [NSColor blackColor];
         _textField2.textColor = [NSColor blackColor];
 
-        fillColor = [NSColor colorWithCalibratedWhite:0.8 alpha:1.0];
+        fillColor1 = [NSColor colorWithCalibratedWhite:0.8 alpha:1.0];
+        fillColor2 = [NSColor colorWithCalibratedWhite:0.9 alpha:1.0];
     }
     
     CGFloat cornerRadius = 6;
@@ -96,7 +98,7 @@
     [path lineToPoint:NSMakePoint(NSMinX(self.bounds) + cornerRadius, NSMaxY(self.bounds))];
     [path curveToPoint:NSMakePoint(NSMinX(self.bounds), NSMaxY(self.bounds) - cornerRadius) controlPoint1:bottomLeftCorner controlPoint2:bottomLeftCorner];
 
-    [fillColor set];
+    [fillColor1 set];
     [path fill];
 
     NSPoint topRightCorner = NSMakePoint(NSMaxX(self.bounds), NSMinY(self.bounds));
@@ -110,7 +112,7 @@
     [path curveToPoint:NSMakePoint(NSMaxX(self.bounds) - cornerRadius, NSMaxY(self.bounds)) controlPoint1:bottomRightCorner controlPoint2:bottomRightCorner];
     [path lineToPoint:NSMakePoint(midx+1, NSMaxY(self.bounds))];
     
-    [fillColor set];
+    [fillColor2 set];
     [path fill];
 }
 
