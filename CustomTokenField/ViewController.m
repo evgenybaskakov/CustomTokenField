@@ -29,7 +29,7 @@
     _currentToken = -1;
 
     NSRect documentViewFrame = _scrollView.frame;
-    documentViewFrame.size.width = CGFLOAT_MAX;
+    documentViewFrame.size.width = 0;
     
     _tokenFieldView = [[CustomTokenFieldView alloc] initWithFrame:documentViewFrame];
     
@@ -392,7 +392,17 @@
         xpos = prevToken.frame.origin.x + prevToken.frame.size.width;
     }
 
-    _editToken.frame = NSMakeRect(xpos, -4, CGFLOAT_MAX, _tokenFieldView.frame.size.height);
+    CGFloat delta = 10;
+    if(xpos + _editToken.attributedString.size.width + delta < _scrollView.frame.size.width) {
+        _editToken.textContainer.size = NSMakeSize(_scrollView.frame.size.width - xpos, _editToken.textContainer.size.height);
+    }
+    else {
+        _editToken.textContainer.size = NSMakeSize(_editToken.attributedString.size.width + delta, _editToken.textContainer.size.height);
+    }
+    
+    _editToken.frame = NSMakeRect(xpos, -4, _editToken.textContainer.size.width, _tokenFieldView.frame.size.height);
+    
+    _tokenFieldView.frame = NSMakeRect(_tokenFieldView.frame.origin.x, _tokenFieldView.frame.origin.y, xpos + _editToken.frame.size.width, _tokenFieldView.frame.size.height);
 }
 
 - (void)tokenMouseDown:(Token*)token event:(NSEvent *)theEvent {

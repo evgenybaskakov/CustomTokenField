@@ -22,7 +22,7 @@
     editToken.verticallyResizable = NO;
     editToken.importsGraphics = NO;
     editToken.textContainer.widthTracksTextView = NO;
-    editToken.textContainer.containerSize = NSMakeSize(CGFLOAT_MAX, editToken.textContainer.containerSize.height);
+    editToken.textContainer.containerSize = NSMakeSize(0, editToken.textContainer.containerSize.height);
     editToken.fieldEditor = YES;
     
     return editToken;
