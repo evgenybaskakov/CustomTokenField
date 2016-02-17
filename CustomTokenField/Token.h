@@ -10,10 +10,10 @@
 
 @class ViewController;
 
-@interface Token : NSTextField
+@interface Token : NSView
 
 @property (nonatomic) BOOL selected;
 
-+ (Token*)createToken:(NSString*)text viewController:(ViewController*)viewController;
++ (Token*)createToken:(NSString*)text1 text2:(NSString*)text2 viewController:(ViewController*)viewController;
 
 @end

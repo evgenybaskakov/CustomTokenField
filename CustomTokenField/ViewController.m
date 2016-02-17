@@ -35,10 +35,10 @@
     
     [_scrollView setDocumentView:_tokenFieldView];
     
-    [_tokens addObject:[Token createToken:@"Token1" viewController:self]];
-    [_tokens addObject:[Token createToken:@"Token2" viewController:self]];
-    [_tokens addObject:[Token createToken:@"Token3" viewController:self]];
-    [_tokens addObject:[Token createToken:@"Token4" viewController:self]];
+    [_tokens addObject:[Token createToken:@"Token1" text2:@"L111" viewController:self]];
+    [_tokens addObject:[Token createToken:@"Token2" text2:@"L222" viewController:self]];
+    [_tokens addObject:[Token createToken:@"Token3" text2:@"L333" viewController:self]];
+    [_tokens addObject:[Token createToken:@"Token4" text2:@"L444" viewController:self]];
 
     _editToken = [EditToken createEditToken:self];
     
@@ -379,7 +379,7 @@
             xpos = prevToken.frame.origin.x + prevToken.frame.size.width + 2;
         }
         
-        [token setFrame:NSMakeRect(xpos, 1, 48, _tokenFieldView.frame.size.height-2)];
+        [token setFrame:NSMakeRect(xpos, 2, token.frame.size.width, token.frame.size.height)];
     }
 
     CGFloat xpos;
@@ -400,7 +400,7 @@
         _editToken.textContainer.size = NSMakeSize(_editToken.attributedString.size.width + delta, _editToken.textContainer.size.height);
     }
     
-    _editToken.frame = NSMakeRect(xpos, -4, _editToken.textContainer.size.width, _tokenFieldView.frame.size.height);
+    _editToken.frame = NSMakeRect(xpos, -3, _editToken.textContainer.size.width, _tokenFieldView.frame.size.height);
     
     _tokenFieldView.frame = NSMakeRect(_tokenFieldView.frame.origin.x, _tokenFieldView.frame.origin.y, xpos + _editToken.frame.size.width, _tokenFieldView.frame.size.height);
 }

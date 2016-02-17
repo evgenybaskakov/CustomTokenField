@@ -24,6 +24,7 @@
     editToken.textContainer.widthTracksTextView = NO;
     editToken.textContainer.containerSize = NSMakeSize(0, editToken.textContainer.containerSize.height);
     editToken.fieldEditor = YES;
+    editToken.font = [NSFont systemFontOfSize:12];
     
     return editToken;
 }
