@@ -47,12 +47,15 @@
 }
 
 - (void)tokenAction:(id)sender {
+    NSAssert([sender isKindOfClass:[Token class]], @"unexpected sender");
+    Token *token = sender;
+    
     NSMenu *theMenu = [[NSMenu alloc] initWithTitle:@"Contextual Menu"];
     
     [theMenu addItemWithTitle:@"Edit" action:@selector(blah:) keyEquivalent:@""];
     [theMenu addItemWithTitle:@"Delete" action:@selector(blah:) keyEquivalent:@""];
     
-    [theMenu popUpMenuPositioningItem:nil atLocation:[NSEvent mouseLocation] inView:nil];
+    [theMenu popUpMenuPositioningItem:nil atLocation:NSMakePoint(0, -6) inView:token];
 }
 
 - (void)blah:(id)sender {
@@ -432,6 +435,7 @@
     [_selectedTokens addIndex:_currentToken];
     [_editToken setSelectedRange:NSMakeRange(0, 0)];
     [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
+    [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
 }
 
 @end

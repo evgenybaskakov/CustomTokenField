@@ -140,9 +140,15 @@
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
+    NSPoint mouseLocation = [theEvent locationInWindow];
+    NSPoint localPoint = [self convertPoint:mouseLocation fromView:nil];
+    BOOL triggerAction = [self mouse:localPoint inRect:_textField1.frame]? YES : NO;
+    
     [_viewController tokenMouseDown:self event:theEvent];
     
-    [_target performSelector:_selector withObject:self afterDelay:0.0];
+    if(triggerAction) {
+        [_target performSelector:_selector withObject:self afterDelay:0.0];        
+    }
 }
 
 @end
