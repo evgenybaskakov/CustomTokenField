@@ -34,9 +34,13 @@
     textField2.editable = NO;
     textField2.bordered = NO;
     textField2.backgroundColor = [NSColor clearColor];
+    [[textField2 cell] setLineBreakMode:NSLineBreakByTruncatingTail];
 
     NSRect bounds2 = NSMakeRect(0, 0, CGFLOAT_MAX, 15);
     float requiredWidth2 = [[textField2 cell] cellSizeForBounds:bounds2].width + widthDelta;
+    if(requiredWidth2 > 100) {
+        requiredWidth2 = 100;
+    }
     textField2.frame = NSMakeRect(0, 0, requiredWidth2, bounds2.size.height);
 
     Token *token = [[Token alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController textField1:textField1 textField2:textField2 target:target selector:selector];
