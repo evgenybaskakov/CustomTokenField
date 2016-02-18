@@ -393,7 +393,7 @@
         }
         else {
             Token *prevToken = (Token*)_tokens[i-1];
-            xpos = prevToken.frame.origin.x + prevToken.frame.size.width + 2;
+            xpos = prevToken.frame.origin.x + prevToken.frame.size.width + 4;
         }
         
         [token setFrame:NSMakeRect(xpos, 2, token.frame.size.width, token.frame.size.height)];
