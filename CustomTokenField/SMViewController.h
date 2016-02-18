@@ -17,6 +17,10 @@
 
 @property (readonly) BOOL tokenSelectionActive;
 
+@property id target;
+@property SEL action;
+@property NSTimeInterval actionDelay;
+
 - (void)addToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector;
 - (void)editToken:(SMEditToken*)sender;
 - (void)cursorLeftFrom:(SMEditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection;

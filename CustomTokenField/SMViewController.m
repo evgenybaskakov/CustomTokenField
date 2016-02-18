@@ -35,15 +35,27 @@
     
     [_scrollView setDocumentView:_tokenFieldView];
     
+    _editToken = [SMEditToken createEditToken:self];
+    [_tokenFieldView addSubview:_editToken];
+    
+    [self adjustTokenFrames];
+    
+    [self testSetup];
+}
+
+- (void)testSetup {
     [self addToken:@"Token1" contentsText:@"Blah!!" target:self selector:@selector(tokenAction:)];
     [self addToken:@"Token2" contentsText:@"Foo" target:self selector:@selector(tokenAction:)];
     [self addToken:@"Token3" contentsText:@"Bar" target:self selector:@selector(tokenAction:)];
     [self addToken:@"Token4" contentsText:@"Everything's weird" target:self selector:@selector(tokenAction:)];
     
-    _editToken = [SMEditToken createEditToken:self];
-    [_tokenFieldView addSubview:_editToken];
-    
-    [self adjustTokenFrames];
+    _target = self;
+    _action = @selector(testAction:);
+    _actionDelay = 0.2;
+}
+
+- (void)testAction:(id)sender {
+    NSLog(@"token field action triggered");
 }
 
 - (void)tokenAction:(id)sender {
@@ -96,6 +108,9 @@
 - (void)textDidChange:(NSNotification *)notification {
 //    NSLog(@"%s: %@", __FUNCTION__, notification.userInfo);
     [self deleteSelectedTokens];
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:_target selector:_action object:self];
+    [_target performSelector:_action withObject:self afterDelay:_actionDelay];
 }
 
 - (void)editToken:(SMEditToken*)sender {
