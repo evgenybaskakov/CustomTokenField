@@ -112,7 +112,7 @@
         }
     }
     else {
-        NSLog(@"theEvent: %@", theEvent);
+//        NSLog(@"theEvent: %@", theEvent);
         [super keyDown:theEvent];
     }
 }

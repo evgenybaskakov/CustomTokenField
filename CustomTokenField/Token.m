@@ -18,21 +18,26 @@
 + (Token*)createToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector viewController:(ViewController*)viewController {
     NSTextField *textField1 = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
     textField1.stringValue = tokenName;
-//    textField1.font = [NSFont systemFontOfSize:11];
-    textField1.frame = NSMakeRect(0, 0, textField1.attributedStringValue.size.width, 15);
     textField1.selectable = NO;
     textField1.editable = NO;
     textField1.bordered = NO;
     textField1.backgroundColor = [NSColor clearColor];
+    
+    CGFloat widthDelta = 1;
+    NSRect bounds1 = NSMakeRect(0, 0, CGFLOAT_MAX, 15);
+    float requiredWidth1 = [[textField1 cell] cellSizeForBounds:bounds1].width + widthDelta;
+    textField1.frame = NSMakeRect(0, 0, requiredWidth1, bounds1.size.height);
 
     NSTextField *textField2 = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
     textField2.stringValue = contentsText;
-//    textField2.font = [NSFont systemFontOfSize:11];
-    textField2.frame = NSMakeRect(0, 0, textField2.attributedStringValue.size.width, 15);
     textField2.selectable = NO;
     textField2.editable = NO;
     textField2.bordered = NO;
     textField2.backgroundColor = [NSColor clearColor];
+
+    NSRect bounds2 = NSMakeRect(0, 0, CGFLOAT_MAX, 15);
+    float requiredWidth2 = [[textField2 cell] cellSizeForBounds:bounds2].width + widthDelta;
+    textField2.frame = NSMakeRect(0, 0, requiredWidth2, bounds2.size.height);
 
     Token *token = [[Token alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController textField1:textField1 textField2:textField2 target:target selector:selector];
     

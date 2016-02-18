@@ -20,7 +20,7 @@
 - (void)keyDown:(NSEvent *)theEvent {
     [super keyDown:theEvent];
     
-    NSLog(@"%s: %@", __FUNCTION__, theEvent);
+//    NSLog(@"%s: %@", __FUNCTION__, theEvent);
     
     [_viewController keyDown:theEvent];
 }
