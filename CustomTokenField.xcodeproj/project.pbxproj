@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8011DFCE1C7591C700340968 /* CustomTokenFieldExample.png in Resources */ = {isa = PBXBuildFile; fileRef = 8011DFCD1C7591C700340968 /* CustomTokenFieldExample.png */; };
 		804131941C6EEBA80018D6D9 /* CustomTokenFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804131931C6EEBA80018D6D9 /* CustomTokenFieldView.m */; };
 		809E09A91C6DA54F0071D813 /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 809E09A81C6DA54F0071D813 /* search-icon.png */; };
 		80C0E2741C6DC2DA002F4ADC /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C0E2731C6DC2DA002F4ADC /* Token.m */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8011DFCD1C7591C700340968 /* CustomTokenFieldExample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CustomTokenFieldExample.png; sourceTree = "<group>"; };
 		804131921C6EEBA80018D6D9 /* CustomTokenFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTokenFieldView.h; sourceTree = "<group>"; };
 		804131931C6EEBA80018D6D9 /* CustomTokenFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTokenFieldView.m; sourceTree = "<group>"; };
 		809E09A81C6DA54F0071D813 /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		80E0851F1C6C776200964540 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8011DFCD1C7591C700340968 /* CustomTokenFieldExample.png */,
 				809E09A81C6DA54F0071D813 /* search-icon.png */,
 				80E085201C6C776200964540 /* main.m */,
 			);
@@ -260,6 +263,7 @@
 			files = (
 				80E085261C6C776200964540 /* Assets.xcassets in Resources */,
 				80E085291C6C776200964540 /* Main.storyboard in Resources */,
+				8011DFCE1C7591C700340968 /* CustomTokenFieldExample.png in Resources */,
 				809E09A91C6DA54F0071D813 /* search-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
