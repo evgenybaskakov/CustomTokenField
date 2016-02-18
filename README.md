@@ -1,8 +1,8 @@
 # CustomTokenField
 
-A customizable token field I created for my small side project.
+A simple yet customizable token field for OS X.
 
-Tokens look like in the Mail's search field. For each of them, there's a target and a selector the user can set. The tokens are customizable.
+The default tokens look just as in the Mail's search field. For each of them, there's a target and a selector the user can set.
 
 Here's an example:
 
