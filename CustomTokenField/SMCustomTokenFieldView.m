@@ -1,15 +1,15 @@
 //
-//  CustomTokenFieldView.m
+//  SMCustomTokenFieldView.m
 //  CustomTokenField
 //
 //  Created by Evgeny Baskakov on 2/12/16.
 //  Copyright © 2016 Evgeny Baskakov. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "CustomTokenFieldView.h"
+#import "SMViewController.h"
+#import "SMCustomTokenFieldView.h"
 
-@implementation CustomTokenFieldView
+@implementation SMCustomTokenFieldView
 
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];

@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  SMViewController.h
 //  CustomTokenField
 //
 //  Created by Evgeny Baskakov on 2/11/16.
@@ -8,20 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class Token;
-@class EditToken;
+@class SMToken;
+@class SMEditToken;
 
-@interface ViewController : NSViewController<NSTextViewDelegate>
+@interface SMViewController : NSViewController<NSTextViewDelegate>
 
 @property IBOutlet NSScrollView *scrollView;
 
 @property (readonly) BOOL tokenSelectionActive;
 
 - (void)addToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector;
-- (void)editToken:(EditToken*)sender;
-- (void)cursorLeftFrom:(EditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection;
+- (void)editToken:(SMEditToken*)sender;
+- (void)cursorLeftFrom:(SMEditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection;
 - (void)clearCursorSelection;
-- (void)tokenMouseDown:(Token*)token event:(NSEvent *)theEvent;
+- (void)tokenMouseDown:(SMToken*)token event:(NSEvent *)theEvent;
 - (void)deleteSelectedTokensAndText;
 
 @end

@@ -1,22 +1,22 @@
 //
-//  ViewController.m
+//  SMViewController.m
 //  CustomTokenField
 //
 //  Created by Evgeny Baskakov on 2/11/16.
 //  Copyright © 2016 Evgeny Baskakov. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "CustomTokenFieldView.h"
-#import "EditToken.h"
-#import "Token.h"
+#import "SMViewController.h"
+#import "SMCustomTokenFieldView.h"
+#import "SMEditToken.h"
+#import "SMToken.h"
 
-@implementation ViewController {
-    CustomTokenFieldView *_tokenFieldView;
-    NSMutableArray<Token*> *_tokens;
+@implementation SMViewController {
+    SMCustomTokenFieldView *_tokenFieldView;
+    NSMutableArray<SMToken*> *_tokens;
     NSMutableIndexSet *_selectedTokens;
     NSInteger _currentToken;
-    EditToken *_editToken;
+    SMEditToken *_editToken;
     BOOL _extendingSelectionFromText;
 }
 
@@ -31,7 +31,7 @@
     NSRect documentViewFrame = _scrollView.frame;
     documentViewFrame.size.width = 0;
     
-    _tokenFieldView = [[CustomTokenFieldView alloc] initWithFrame:documentViewFrame];
+    _tokenFieldView = [[SMCustomTokenFieldView alloc] initWithFrame:documentViewFrame];
     
     [_scrollView setDocumentView:_tokenFieldView];
     
@@ -40,15 +40,15 @@
     [self addToken:@"Token3" contentsText:@"Bar" target:self selector:@selector(tokenAction:)];
     [self addToken:@"Token4" contentsText:@"Everything's weird" target:self selector:@selector(tokenAction:)];
     
-    _editToken = [EditToken createEditToken:self];
+    _editToken = [SMEditToken createEditToken:self];
     [_tokenFieldView addSubview:_editToken];
     
     [self adjustTokenFrames];
 }
 
 - (void)tokenAction:(id)sender {
-    NSAssert([sender isKindOfClass:[Token class]], @"unexpected sender");
-    Token *token = sender;
+    NSAssert([sender isKindOfClass:[SMToken class]], @"unexpected sender");
+    SMToken *token = sender;
     
     NSMenu *theMenu = [[NSMenu alloc] initWithTitle:@"Contextual Menu"];
     
@@ -69,7 +69,7 @@
 }
 
 - (void)addToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector {
-    Token *token = [Token createToken:tokenName contentsText:contentsText target:target selector:selector viewController:self];
+    SMToken *token = [SMToken createToken:tokenName contentsText:contentsText target:target selector:selector viewController:self];
     
     [_tokens addObject:token];
     [_tokenFieldView addSubview:token];
@@ -98,11 +98,11 @@
     [self deleteSelectedTokens];
 }
 
-- (void)editToken:(EditToken*)sender {
+- (void)editToken:(SMEditToken*)sender {
 //    NSLog(@"%s", __FUNCTION__);
 }
 
-- (void)cursorLeftFrom:(EditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection {
+- (void)cursorLeftFrom:(SMEditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection {
 //    NSLog(@"%s", __FUNCTION__);
     
     [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
@@ -166,7 +166,7 @@
 - (void)selectAll:(id)sender {
     [_selectedTokens addIndexesInRange:NSMakeRange(0, _tokens.count)];
 
-    for(Token *token in _tokens) {
+    for(SMToken *token in _tokens) {
         token.selected = YES;
     }
 
@@ -387,7 +387,7 @@
 
 - (void)adjustTokenFrames {
     for(NSUInteger i = 0; i < _tokens.count; i++) {
-        Token *token = _tokens[i];
+        SMToken *token = _tokens[i];
         
         CGFloat xpos;
         
@@ -395,7 +395,7 @@
             xpos = 0;
         }
         else {
-            Token *prevToken = (Token*)_tokens[i-1];
+            SMToken *prevToken = (SMToken*)_tokens[i-1];
             xpos = prevToken.frame.origin.x + prevToken.frame.size.width + 4;
         }
         
@@ -408,7 +408,7 @@
         xpos = 0;
     }
     else {
-        Token *prevToken = (Token*)_tokens.lastObject;
+        SMToken *prevToken = (SMToken*)_tokens.lastObject;
         xpos = prevToken.frame.origin.x + prevToken.frame.size.width;
     }
 
@@ -425,7 +425,7 @@
     _tokenFieldView.frame = NSMakeRect(_tokenFieldView.frame.origin.x, _tokenFieldView.frame.origin.y, xpos + _editToken.frame.size.width, _tokenFieldView.frame.size.height);
 }
 
-- (void)tokenMouseDown:(Token*)token event:(NSEvent *)theEvent {
+- (void)tokenMouseDown:(SMToken*)token event:(NSEvent *)theEvent {
     [self clearCursorSelection];
     
     _currentToken = [_tokens indexOfObject:token];

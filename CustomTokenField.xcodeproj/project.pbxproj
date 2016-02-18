@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		8011DFD01C75948A00340968 /* CustomTokenFieldExample.png in Resources */ = {isa = PBXBuildFile; fileRef = 8011DFCF1C75948A00340968 /* CustomTokenFieldExample.png */; };
-		804131941C6EEBA80018D6D9 /* CustomTokenFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804131931C6EEBA80018D6D9 /* CustomTokenFieldView.m */; };
+		804131941C6EEBA80018D6D9 /* SMCustomTokenFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804131931C6EEBA80018D6D9 /* SMCustomTokenFieldView.m */; };
 		809E09A91C6DA54F0071D813 /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 809E09A81C6DA54F0071D813 /* search-icon.png */; };
-		80C0E2741C6DC2DA002F4ADC /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C0E2731C6DC2DA002F4ADC /* Token.m */; };
-		80C0E2771C6DCB45002F4ADC /* EditToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C0E2761C6DCB45002F4ADC /* EditToken.m */; };
-		80E0851E1C6C776200964540 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E0851D1C6C776200964540 /* AppDelegate.m */; };
+		80C0E2741C6DC2DA002F4ADC /* SMToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C0E2731C6DC2DA002F4ADC /* SMToken.m */; };
+		80C0E2771C6DCB45002F4ADC /* SMEditToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C0E2761C6DCB45002F4ADC /* SMEditToken.m */; };
+		80E0851E1C6C776200964540 /* SMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E0851D1C6C776200964540 /* SMAppDelegate.m */; };
 		80E085211C6C776200964540 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E085201C6C776200964540 /* main.m */; };
-		80E085241C6C776200964540 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E085231C6C776200964540 /* ViewController.m */; };
+		80E085241C6C776200964540 /* SMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E085231C6C776200964540 /* SMViewController.m */; };
 		80E085261C6C776200964540 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80E085251C6C776200964540 /* Assets.xcassets */; };
 		80E085291C6C776200964540 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80E085271C6C776200964540 /* Main.storyboard */; };
 		80E085341C6C776200964540 /* CustomTokenFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E085331C6C776200964540 /* CustomTokenFieldTests.m */; };
@@ -40,19 +40,19 @@
 
 /* Begin PBXFileReference section */
 		8011DFCF1C75948A00340968 /* CustomTokenFieldExample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CustomTokenFieldExample.png; sourceTree = "<group>"; };
-		804131921C6EEBA80018D6D9 /* CustomTokenFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTokenFieldView.h; sourceTree = "<group>"; };
-		804131931C6EEBA80018D6D9 /* CustomTokenFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTokenFieldView.m; sourceTree = "<group>"; };
+		804131921C6EEBA80018D6D9 /* SMCustomTokenFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCustomTokenFieldView.h; sourceTree = "<group>"; };
+		804131931C6EEBA80018D6D9 /* SMCustomTokenFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCustomTokenFieldView.m; sourceTree = "<group>"; };
 		809E09A81C6DA54F0071D813 /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
-		80C0E2721C6DC2DA002F4ADC /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
-		80C0E2731C6DC2DA002F4ADC /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
-		80C0E2751C6DCB45002F4ADC /* EditToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditToken.h; sourceTree = "<group>"; };
-		80C0E2761C6DCB45002F4ADC /* EditToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditToken.m; sourceTree = "<group>"; };
+		80C0E2721C6DC2DA002F4ADC /* SMToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMToken.h; sourceTree = "<group>"; };
+		80C0E2731C6DC2DA002F4ADC /* SMToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMToken.m; sourceTree = "<group>"; };
+		80C0E2751C6DCB45002F4ADC /* SMEditToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMEditToken.h; sourceTree = "<group>"; };
+		80C0E2761C6DCB45002F4ADC /* SMEditToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMEditToken.m; sourceTree = "<group>"; };
 		80E085191C6C776200964540 /* CustomTokenField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomTokenField.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		80E0851C1C6C776200964540 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		80E0851D1C6C776200964540 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		80E0851C1C6C776200964540 /* SMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMAppDelegate.h; sourceTree = "<group>"; };
+		80E0851D1C6C776200964540 /* SMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMAppDelegate.m; sourceTree = "<group>"; };
 		80E085201C6C776200964540 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		80E085221C6C776200964540 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		80E085231C6C776200964540 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		80E085221C6C776200964540 /* SMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMViewController.h; sourceTree = "<group>"; };
+		80E085231C6C776200964540 /* SMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMViewController.m; sourceTree = "<group>"; };
 		80E085251C6C776200964540 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80E085281C6C776200964540 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		80E0852A1C6C776200964540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -112,16 +112,16 @@
 		80E0851B1C6C776200964540 /* CustomTokenField */ = {
 			isa = PBXGroup;
 			children = (
-				80E0851C1C6C776200964540 /* AppDelegate.h */,
-				80E0851D1C6C776200964540 /* AppDelegate.m */,
-				804131921C6EEBA80018D6D9 /* CustomTokenFieldView.h */,
-				804131931C6EEBA80018D6D9 /* CustomTokenFieldView.m */,
-				80C0E2751C6DCB45002F4ADC /* EditToken.h */,
-				80C0E2761C6DCB45002F4ADC /* EditToken.m */,
-				80C0E2721C6DC2DA002F4ADC /* Token.h */,
-				80C0E2731C6DC2DA002F4ADC /* Token.m */,
-				80E085221C6C776200964540 /* ViewController.h */,
-				80E085231C6C776200964540 /* ViewController.m */,
+				80E0851C1C6C776200964540 /* SMAppDelegate.h */,
+				80E0851D1C6C776200964540 /* SMAppDelegate.m */,
+				804131921C6EEBA80018D6D9 /* SMCustomTokenFieldView.h */,
+				804131931C6EEBA80018D6D9 /* SMCustomTokenFieldView.m */,
+				80C0E2751C6DCB45002F4ADC /* SMEditToken.h */,
+				80C0E2761C6DCB45002F4ADC /* SMEditToken.m */,
+				80C0E2721C6DC2DA002F4ADC /* SMToken.h */,
+				80C0E2731C6DC2DA002F4ADC /* SMToken.m */,
+				80E085221C6C776200964540 /* SMViewController.h */,
+				80E085231C6C776200964540 /* SMViewController.m */,
 				80E085251C6C776200964540 /* Assets.xcassets */,
 				80E085271C6C776200964540 /* Main.storyboard */,
 				80E0852A1C6C776200964540 /* Info.plist */,
@@ -289,12 +289,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80E085241C6C776200964540 /* ViewController.m in Sources */,
+				80E085241C6C776200964540 /* SMViewController.m in Sources */,
 				80E085211C6C776200964540 /* main.m in Sources */,
-				804131941C6EEBA80018D6D9 /* CustomTokenFieldView.m in Sources */,
-				80E0851E1C6C776200964540 /* AppDelegate.m in Sources */,
-				80C0E2741C6DC2DA002F4ADC /* Token.m in Sources */,
-				80C0E2771C6DCB45002F4ADC /* EditToken.m in Sources */,
+				804131941C6EEBA80018D6D9 /* SMCustomTokenFieldView.m in Sources */,
+				80E0851E1C6C776200964540 /* SMAppDelegate.m in Sources */,
+				80C0E2741C6DC2DA002F4ADC /* SMToken.m in Sources */,
+				80C0E2771C6DCB45002F4ADC /* SMEditToken.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,18 +1,18 @@
 //
-//  AppDelegate.m
+//  SMAppDelegate.m
 //  CustomTokenField
 //
 //  Created by Evgeny Baskakov on 2/11/16.
 //  Copyright © 2016 Evgeny Baskakov. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "SMAppDelegate.h"
 
-@interface AppDelegate ()
+@interface SMAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation SMAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application

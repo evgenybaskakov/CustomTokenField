@@ -1,20 +1,20 @@
 //
-//  EditToken.m
+//  SMEditToken.m
 //  CustomTokenField
 //
 //  Created by Evgeny Baskakov on 2/12/16.
 //  Copyright © 2016 Evgeny Baskakov. All rights reserved.
 //
 
-#import "EditToken.h"
-#import "ViewController.h"
+#import "SMEditToken.h"
+#import "SMViewController.h"
 
-@implementation EditToken {
-    ViewController *__weak _viewController;
+@implementation SMEditToken {
+    SMViewController *__weak _viewController;
 }
 
-+ (EditToken*)createEditToken:(ViewController*)viewController {
-    EditToken *editToken = [[EditToken alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController];
++ (SMEditToken*)createEditToken:(SMViewController*)viewController {
+    SMEditToken *editToken = [[SMEditToken alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController];
 
     editToken.focusRingType = NSFocusRingTypeNone;
     editToken.delegate = viewController;
@@ -28,7 +28,7 @@
     return editToken;
 }
 
-- (id)initWithFrame:(NSRect)frameRect viewController:(ViewController*)viewController {
+- (id)initWithFrame:(NSRect)frameRect viewController:(SMViewController*)viewController {
     self = [super initWithFrame:frameRect];
     
     if(self) {

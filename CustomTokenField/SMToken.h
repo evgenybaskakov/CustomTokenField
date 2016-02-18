@@ -1,5 +1,5 @@
 //
-//  Token.h
+//  SMToken.h
 //  CustomTokenField
 //
 //  Created by Evgeny Baskakov on 2/11/16.
@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class ViewController;
+@class SMViewController;
 
-@interface Token : NSView
+@interface SMToken : NSView
 
 @property (readonly) NSString *tokenName;
 @property (readonly) NSString *contentsText;
@@ -19,6 +19,6 @@
 
 @property (nonatomic) BOOL selected;
 
-+ (Token*)createToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector viewController:(ViewController*)viewController;
++ (SMToken*)createToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector viewController:(SMViewController*)viewController;
 
 @end

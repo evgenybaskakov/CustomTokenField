@@ -1,21 +1,21 @@
 //
-//  Token.m
+//  SMToken.m
 //  CustomTokenField
 //
 //  Created by Evgeny Baskakov on 2/11/16.
 //  Copyright © 2016 Evgeny Baskakov. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "Token.h"
+#import "SMViewController.h"
+#import "SMToken.h"
 
-@implementation Token {
-    ViewController *__weak _viewController;
+@implementation SMToken {
+    SMViewController *__weak _viewController;
     NSTextField *_textField1;
     NSTextField *_textField2;
 }
 
-+ (Token*)createToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector viewController:(ViewController*)viewController {
++ (SMToken*)createToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector viewController:(SMViewController*)viewController {
     NSTextField *textField1 = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
     textField1.stringValue = tokenName;
     textField1.selectable = NO;
@@ -43,14 +43,14 @@
     }
     textField2.frame = NSMakeRect(0, 0, requiredWidth2, bounds2.size.height);
 
-    Token *token = [[Token alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController textField1:textField1 textField2:textField2 target:target selector:selector];
+    SMToken *token = [[SMToken alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController textField1:textField1 textField2:textField2 target:target selector:selector];
     
     token.selected = NO;
 
     return token;
 }
 
-- (id)initWithFrame:(NSRect)frameRect viewController:(ViewController*)viewController textField1:(NSTextField*)textField1 textField2:(NSTextField*)textField2 target:(id)target selector:(SEL)selector {
+- (id)initWithFrame:(NSRect)frameRect viewController:(SMViewController*)viewController textField1:(NSTextField*)textField1 textField2:(NSTextField*)textField2 target:(id)target selector:(SEL)selector {
     self = [super initWithFrame:frameRect];
     
     if(self) {

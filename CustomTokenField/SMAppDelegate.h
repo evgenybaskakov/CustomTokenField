@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  SMAppDelegate.h
 //  CustomTokenField
 //
 //  Created by Evgeny Baskakov on 2/11/16.
@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface SMAppDelegate : NSObject <NSApplicationDelegate>
 
 
 @end
