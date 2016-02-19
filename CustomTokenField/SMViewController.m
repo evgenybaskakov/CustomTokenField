@@ -424,7 +424,7 @@
     }
     else {
         SMToken *prevToken = (SMToken*)_tokens.lastObject;
-        xpos = prevToken.frame.origin.x + prevToken.frame.size.width;
+        xpos = prevToken.frame.origin.x + prevToken.frame.size.width + 1;
     }
 
     CGFloat delta = 10;
@@ -435,7 +435,7 @@
         _editToken.textContainer.size = NSMakeSize(_editToken.attributedString.size.width + delta, _editToken.textContainer.size.height);
     }
     
-    _editToken.frame = NSMakeRect(xpos, -4, _editToken.textContainer.size.width, _tokenFieldView.frame.size.height);
+    _editToken.frame = NSMakeRect(xpos, 1, _editToken.textContainer.size.width, 15);
     
     _tokenFieldView.frame = NSMakeRect(_tokenFieldView.frame.origin.x, _tokenFieldView.frame.origin.y, xpos + _editToken.frame.size.width, _tokenFieldView.frame.size.height);
 }

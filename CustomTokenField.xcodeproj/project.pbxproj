@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8011DFD01C75948A00340968 /* CustomTokenFieldExample.png in Resources */ = {isa = PBXBuildFile; fileRef = 8011DFCF1C75948A00340968 /* CustomTokenFieldExample.png */; };
+		803BB7831C76D7CD00D26AEA /* SMCustomTokenFieldBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 803BB7821C76D7CD00D26AEA /* SMCustomTokenFieldBox.m */; };
 		804131941C6EEBA80018D6D9 /* SMCustomTokenFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804131931C6EEBA80018D6D9 /* SMCustomTokenFieldView.m */; };
 		809E09A91C6DA54F0071D813 /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 809E09A81C6DA54F0071D813 /* search-icon.png */; };
 		80C0E2741C6DC2DA002F4ADC /* SMToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C0E2731C6DC2DA002F4ADC /* SMToken.m */; };
@@ -40,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		8011DFCF1C75948A00340968 /* CustomTokenFieldExample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CustomTokenFieldExample.png; sourceTree = "<group>"; };
+		803BB7811C76D7CD00D26AEA /* SMCustomTokenFieldBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCustomTokenFieldBox.h; sourceTree = "<group>"; };
+		803BB7821C76D7CD00D26AEA /* SMCustomTokenFieldBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCustomTokenFieldBox.m; sourceTree = "<group>"; };
 		804131921C6EEBA80018D6D9 /* SMCustomTokenFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCustomTokenFieldView.h; sourceTree = "<group>"; };
 		804131931C6EEBA80018D6D9 /* SMCustomTokenFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCustomTokenFieldView.m; sourceTree = "<group>"; };
 		809E09A81C6DA54F0071D813 /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
@@ -114,6 +117,8 @@
 			children = (
 				80E0851C1C6C776200964540 /* SMAppDelegate.h */,
 				80E0851D1C6C776200964540 /* SMAppDelegate.m */,
+				803BB7811C76D7CD00D26AEA /* SMCustomTokenFieldBox.h */,
+				803BB7821C76D7CD00D26AEA /* SMCustomTokenFieldBox.m */,
 				804131921C6EEBA80018D6D9 /* SMCustomTokenFieldView.h */,
 				804131931C6EEBA80018D6D9 /* SMCustomTokenFieldView.m */,
 				80C0E2751C6DCB45002F4ADC /* SMEditToken.h */,
@@ -293,6 +298,7 @@
 				80E085211C6C776200964540 /* main.m in Sources */,
 				804131941C6EEBA80018D6D9 /* SMCustomTokenFieldView.m in Sources */,
 				80E0851E1C6C776200964540 /* SMAppDelegate.m in Sources */,
+				803BB7831C76D7CD00D26AEA /* SMCustomTokenFieldBox.m in Sources */,
 				80C0E2741C6DC2DA002F4ADC /* SMToken.m in Sources */,
 				80C0E2771C6DCB45002F4ADC /* SMEditToken.m in Sources */,
 			);
