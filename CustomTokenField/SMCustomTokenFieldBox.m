@@ -23,6 +23,8 @@ static const NSUInteger cornerRadius = 4;
     [path fill];
     
     if([self containsFirstResponder]) {
+        [self setKeyboardFocusRingNeedsDisplayInRect:[self bounds]];
+        
         NSSetFocusRingStyle(NSFocusRingBelow);
         
         NSBezierPath *focusRingPath = [NSBezierPath bezierPathWithRoundedRect:self.bounds xRadius:cornerRadius yRadius:cornerRadius];

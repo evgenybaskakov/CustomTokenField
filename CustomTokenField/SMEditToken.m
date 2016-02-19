@@ -46,6 +46,8 @@
 
 - (BOOL)becomeFirstResponder {
     [_viewController editToken:self];
+    [_viewController.view display];
+    [self setSelectedRange:NSMakeRange(0, 0)];
     return YES;
 }
 
