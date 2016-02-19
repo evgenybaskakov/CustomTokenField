@@ -25,8 +25,4 @@
     [_viewController keyDown:theEvent];
 }
 
-- (BOOL)acceptsFirstResponder {
-    return YES;
-}
-
 @end
