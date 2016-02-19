@@ -312,14 +312,20 @@
 
                 [_tokenFieldView.window makeFirstResponder:_editToken];
 
-                [_editToken setSelectedRange:NSMakeRange(0, _editToken.string.length)];
+                NSRange selectedRange = NSMakeRange(0, _editToken.string.length);
+
+                [_editToken setSelectedRange:selectedRange];
+                [_editToken scrollRangeToVisible:selectedRange];
             }
             else {
                 [self clearCursorSelection];
                 
                 [_tokenFieldView.window makeFirstResponder:_editToken];
                 
-                [_editToken setSelectedRange:NSMakeRange(_editToken.string.length, 0)];
+                NSRange selectedRange = NSMakeRange(_editToken.string.length, 0);
+                
+                [_editToken setSelectedRange:selectedRange];
+                [_editToken scrollRangeToVisible:selectedRange];
             }
         }
         else {
@@ -451,6 +457,10 @@
     [_editToken setSelectedRange:NSMakeRange(0, 0)];
     [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
     [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
+ 
+    // Force display in order to redraw the view if it just becomes 
+    // the first responder and may need to refresh the graphics state.
+    [self.view display];
 }
 
 @end
