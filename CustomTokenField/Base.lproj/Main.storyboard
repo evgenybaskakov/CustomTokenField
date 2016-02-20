@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
@@ -673,15 +674,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <box fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Db2-32-U2n" customClass="SMTokenFieldBox">
+                            <box title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Db2-32-U2n" customClass="SMTokenFieldBox">
                                 <rect key="frame" x="20" y="231" width="440" height="22"/>
-                                <view key="contentView" ambiguous="YES" id="dec-XB-DNG">
+                                <view key="contentView" id="dec-XB-DNG">
                                     <rect key="frame" x="1" y="1" width="438" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="nCO-yH-DzG">
+                                        <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="nCO-yH-DzG">
                                             <rect key="frame" x="20" y="0.0" width="419" height="22"/>
-                                            <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="Lfp-RU-r7g">
+                                            <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Lfp-RU-r7g">
                                                 <rect key="frame" x="0.0" y="0.0" width="419" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -705,6 +706,12 @@
                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="search-icon" id="ueT-d8-KjE"/>
                                         </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="nCO-yH-DzG" secondAttribute="bottom" id="63X-ub-XfU"/>
+                                        <constraint firstItem="nCO-yH-DzG" firstAttribute="top" secondItem="dec-XB-DNG" secondAttribute="top" constant="-2" id="8BP-6d-kyP"/>
+                                        <constraint firstItem="nCO-yH-DzG" firstAttribute="leading" secondItem="dec-XB-DNG" secondAttribute="leading" constant="20" id="M0W-sL-VSK"/>
+                                        <constraint firstAttribute="trailing" secondItem="nCO-yH-DzG" secondAttribute="trailing" constant="-1" id="S8g-Fa-hb5"/>
+                                    </constraints>
                                 </view>
                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -718,6 +725,12 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Db2-32-U2n" secondAttribute="bottom" constant="231" id="2wr-UQ-T0m"/>
+                            <constraint firstItem="Db2-32-U2n" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="FYm-xc-74f"/>
+                            <constraint firstItem="Db2-32-U2n" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="17" id="Uvm-Jz-61r"/>
+                            <constraint firstAttribute="trailing" secondItem="Db2-32-U2n" secondAttribute="trailing" constant="20" id="ghR-Gg-JLb"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="containerBoxView" destination="Db2-32-U2n" id="H94-IY-2Ce"/>
