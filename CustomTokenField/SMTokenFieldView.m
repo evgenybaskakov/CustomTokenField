@@ -6,10 +6,10 @@
 //  Copyright © 2016 Evgeny Baskakov. All rights reserved.
 //
 
-#import "SMViewController.h"
-#import "SMCustomTokenFieldView.h"
+#import "SMTokenFieldViewController.h"
+#import "SMTokenFieldView.h"
 
-@implementation SMCustomTokenFieldView
+@implementation SMTokenFieldView
 
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];

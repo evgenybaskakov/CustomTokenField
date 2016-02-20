@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface SMCustomTokenFieldBox : NSBox
+@interface SMTokenFieldBox : NSBox
 
 @end

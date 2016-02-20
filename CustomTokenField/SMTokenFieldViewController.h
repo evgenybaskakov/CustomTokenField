@@ -8,10 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class SMToken;
-@class SMEditToken;
+@class SMTokenView;
+@class SMTokenEditView;
 
-@interface SMViewController : NSViewController<NSTextViewDelegate>
+@interface SMTokenFieldViewController : NSViewController<NSTextViewDelegate>
 
 @property IBOutlet NSScrollView *scrollView;
 
@@ -22,10 +22,10 @@
 @property NSTimeInterval actionDelay;
 
 - (void)addToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector;
-- (void)editToken:(SMEditToken*)sender;
-- (void)cursorLeftFrom:(SMEditToken*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection;
+- (void)editToken:(SMTokenEditView*)sender;
+- (void)cursorLeftFrom:(SMTokenEditView*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection;
 - (void)clearCursorSelection;
-- (void)tokenMouseDown:(SMToken*)token event:(NSEvent *)theEvent;
+- (void)tokenMouseDown:(SMTokenView*)token event:(NSEvent *)theEvent;
 - (void)deleteSelectedTokensAndText;
 
 @end

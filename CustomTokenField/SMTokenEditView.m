@@ -6,15 +6,15 @@
 //  Copyright © 2016 Evgeny Baskakov. All rights reserved.
 //
 
-#import "SMEditToken.h"
-#import "SMViewController.h"
+#import "SMTokenEditView.h"
+#import "SMTokenFieldViewController.h"
 
-@implementation SMEditToken {
-    SMViewController *__weak _viewController;
+@implementation SMTokenEditView {
+    SMTokenFieldViewController *__weak _viewController;
 }
 
-+ (SMEditToken*)createEditToken:(SMViewController*)viewController {
-    SMEditToken *editToken = [[SMEditToken alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController];
++ (SMTokenEditView*)createEditToken:(SMTokenFieldViewController*)viewController {
+    SMTokenEditView *editToken = [[SMTokenEditView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController];
 
     editToken.focusRingType = NSFocusRingTypeNone;
     editToken.delegate = viewController;
@@ -28,7 +28,7 @@
     return editToken;
 }
 
-- (id)initWithFrame:(NSRect)frameRect viewController:(SMViewController*)viewController {
+- (id)initWithFrame:(NSRect)frameRect viewController:(SMTokenFieldViewController*)viewController {
     self = [super initWithFrame:frameRect];
     
     if(self) {

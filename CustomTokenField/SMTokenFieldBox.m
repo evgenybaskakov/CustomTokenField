@@ -6,9 +6,9 @@
 //  Copyright © 2016 Evgeny Baskakov. All rights reserved.
 //
 
-#import "SMCustomTokenFieldBox.h"
+#import "SMTokenFieldBox.h"
 
-@implementation SMCustomTokenFieldBox
+@implementation SMTokenFieldBox
 
 static const NSUInteger cornerRadius = 4;
 

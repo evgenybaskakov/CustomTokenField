@@ -1,5 +1,5 @@
 //
-//  SMEditToken.h
+//  SMCustomTokenFieldView.h
 //  CustomTokenField
 //
 //  Created by Evgeny Baskakov on 2/12/16.
@@ -8,10 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class SMViewController;
+@class SMTokenFieldViewController;
 
-@interface SMEditToken : NSTextView
+@interface SMTokenFieldView : NSView
 
-+ (SMEditToken*)createEditToken:(SMViewController*)viewController;
+@property SMTokenFieldViewController *__weak viewController;
 
 @end

@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class SMViewController;
+@class SMTokenFieldViewController;
 
-@interface SMToken : NSView
+@interface SMTokenView : NSView
 
 @property (readonly) NSString *tokenName;
 @property (readonly) NSString *contentsText;
@@ -19,6 +19,6 @@
 
 @property (nonatomic) BOOL selected;
 
-+ (SMToken*)createToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector viewController:(SMViewController*)viewController;
++ (SMTokenView*)createToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector viewController:(SMTokenFieldViewController*)viewController;
 
 @end
