@@ -22,7 +22,7 @@
 @property NSTimeInterval actionDelay;
 
 - (void)addToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector;
-- (void)editToken:(SMTokenEditView*)sender;
+- (void)editToken:(SMTokenView*)token;
 - (void)cursorLeftFrom:(SMTokenEditView*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection;
 - (void)clearCursorSelection;
 - (void)tokenMouseDown:(SMTokenView*)token event:(NSEvent *)theEvent;

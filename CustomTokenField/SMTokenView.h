@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class SMTokenEditView;
 @class SMTokenFieldViewController;
 
 @interface SMTokenView : NSView
@@ -18,6 +19,7 @@
 @property (readonly) SEL selector;
 
 @property (nonatomic) BOOL selected;
+@property (nonatomic) SMTokenEditView *editorView;
 
 + (SMTokenView*)createToken:(NSString*)tokenName contentsText:(NSString*)contentsText target:(id)target selector:(SEL)selector viewController:(SMTokenFieldViewController*)viewController;
 

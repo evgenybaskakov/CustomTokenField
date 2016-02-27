@@ -16,8 +16,10 @@
     NSMutableArray<SMTokenView*> *_tokens;
     NSMutableIndexSet *_selectedTokens;
     NSInteger _currentToken;
-    SMTokenEditView *_editToken;
+    SMTokenEditView *_mainTokenEditor;
+    SMTokenEditView *_existingTokenEditor;
     BOOL _extendingSelectionFromText;
+    SMTokenView *_tokenWithMenu;
 }
 
 - (void)viewDidLoad {
@@ -35,9 +37,9 @@
     
     [_scrollView setDocumentView:_tokenFieldView];
     
-    _editToken = [SMTokenEditView createEditToken:self];
-    [_tokenFieldView addSubview:_editToken];
-    
+    _mainTokenEditor = [SMTokenEditView createEditToken:self];
+    [_tokenFieldView addSubview:_mainTokenEditor];
+
     [self adjustTokenFrames];
     
     [self testSetup];
@@ -52,6 +54,8 @@
     _target = self;
     _action = @selector(testAction:);
     _actionDelay = 0.2;
+    
+//    [self editToken:_tokens[0]];
 }
 
 - (void)testAction:(id)sender {
@@ -64,7 +68,9 @@
     
     NSMenu *theMenu = [[NSMenu alloc] initWithTitle:@"Contextual Menu"];
     
-    [theMenu addItemWithTitle:@"Edit" action:@selector(blah:) keyEquivalent:@""];
+    _tokenWithMenu = token;
+    
+    [[theMenu addItemWithTitle:@"Edit" action:@selector(editTokenWithMenu:) keyEquivalent:@""] setTarget:self];
     [theMenu addItemWithTitle:@"Delete" action:@selector(blah:) keyEquivalent:@""];
     
     [theMenu popUpMenuPositioningItem:nil atLocation:NSMakePoint(0, -6) inView:token];
@@ -72,6 +78,10 @@
 
 - (void)blah:(id)sender {
     NSLog(@"Blah!");
+}
+
+- (void)editTokenWithMenu:(id)sender {
+    [self editToken:_tokenWithMenu];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -86,6 +96,52 @@
     [_tokens addObject:token];
     [_tokenFieldView addSubview:token];
 
+    [self adjustTokenFrames];
+}
+
+- (void)changeToken:(SMTokenView*)tokenView tokenName:(NSString*)tokenName contentsText:(NSString*)contentsText representedObject:(NSObject*)representedObject target:(id)target selector:(SEL)selector {
+    
+    NSUInteger idx = [_tokens indexOfObject:tokenView];
+    if(idx == NSNotFound) {
+        NSLog(@"token '%@' not found", tokenView.tokenName);
+        return;
+    }
+    
+    [_tokens[idx] removeFromSuperview];
+    
+    SMTokenView *newTokenView = [SMTokenView createToken:tokenName contentsText:contentsText target:target selector:selector viewController:self];
+    
+    _tokens[idx] = newTokenView;
+    
+    [_tokenFieldView addSubview:newTokenView];
+    
+    if(tokenView.selected) {
+        newTokenView.selected = YES;
+    }
+    
+    [self adjustTokenFrames];
+}
+
+- (void)editToken:(SMTokenView*)token {
+    NSUInteger idx = [_tokens indexOfObject:token];
+    NSAssert(idx != NSNotFound, @"token %@ not found", token.tokenName);
+    
+    [token removeFromSuperview];
+    [_selectedTokens removeIndex:idx];
+    if(_currentToken == idx) {
+        _currentToken = -1;
+    }
+    
+    NSAssert(_existingTokenEditor == nil, @"_existingTokenEditor == nil"); // TODO
+    
+    _existingTokenEditor = [SMTokenEditView createEditToken:self];
+    [_existingTokenEditor setString:token.contentsText];
+
+    [_tokenFieldView addSubview:_existingTokenEditor];
+    [_tokenFieldView.window makeFirstResponder:_existingTokenEditor];
+    
+    token.editorView = _existingTokenEditor;
+    
     [self adjustTokenFrames];
 }
 
@@ -113,10 +169,6 @@
     [_target performSelector:_action withObject:self afterDelay:_actionDelay];
 }
 
-- (void)editToken:(SMTokenEditView*)sender {
-//    NSLog(@"%s", __FUNCTION__);
-}
-
 - (void)cursorLeftFrom:(SMTokenEditView*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection {
 //    NSLog(@"%s", __FUNCTION__);
     
@@ -141,8 +193,8 @@
                 
                 _currentToken = 0;
 
-                NSRange range = _editToken.selectedRange;
-                [_editToken setSelectedRange:NSMakeRange(0, range.location + range.length)];
+                NSRange range = _mainTokenEditor.selectedRange;
+                [_mainTokenEditor setSelectedRange:NSMakeRange(0, range.location + range.length)];
             }
         }
         else if(!extendSelection && _selectedTokens.count > 1) {
@@ -165,7 +217,7 @@
         }
 
         if(!extendSelection) {
-            [_editToken setSelectedRange:NSMakeRange(0, 0)];
+            [_mainTokenEditor setSelectedRange:NSMakeRange(0, 0)];
         }
 
         [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
@@ -173,8 +225,8 @@
         _extendingSelectionFromText = extendSelection;
     }
     else {
-        [_tokenFieldView.window makeFirstResponder:_editToken];
-        [_editToken setSelectedRange:NSMakeRange(0, 0)];
+        [_tokenFieldView.window makeFirstResponder:_mainTokenEditor];
+        [_mainTokenEditor setSelectedRange:NSMakeRange(0, 0)];
     }
 }
 
@@ -190,7 +242,7 @@
     }
 
     _extendingSelectionFromText = YES;
-    [_editToken setSelectedRange:NSMakeRange(0, _editToken.string.length)];
+    [_mainTokenEditor setSelectedRange:NSMakeRange(0, _mainTokenEditor.string.length)];
 }
 
 - (void)clearCursorSelection {
@@ -224,7 +276,7 @@
                 [_selectedTokens addIndex:_currentToken];
             }
 
-            [_editToken setSelectedRange:NSMakeRange(0, 0)];
+            [_mainTokenEditor setSelectedRange:NSMakeRange(0, 0)];
         }
         else {
             if(theEvent.modifierFlags & NSCommandKeyMask) {
@@ -310,30 +362,30 @@
                 _currentToken = _tokens.count-1;
                 [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
 
-                [_tokenFieldView.window makeFirstResponder:_editToken];
+                [_tokenFieldView.window makeFirstResponder:_mainTokenEditor];
 
-                NSRange selectedRange = NSMakeRange(0, _editToken.string.length);
+                NSRange selectedRange = NSMakeRange(0, _mainTokenEditor.string.length);
 
-                [_editToken setSelectedRange:selectedRange];
-                [_editToken scrollRangeToVisible:selectedRange];
+                [_mainTokenEditor setSelectedRange:selectedRange];
+                [_mainTokenEditor scrollRangeToVisible:selectedRange];
             }
             else {
                 [self clearCursorSelection];
                 
-                [_tokenFieldView.window makeFirstResponder:_editToken];
+                [_tokenFieldView.window makeFirstResponder:_mainTokenEditor];
                 
-                NSRange selectedRange = NSMakeRange(_editToken.string.length, 0);
+                NSRange selectedRange = NSMakeRange(_mainTokenEditor.string.length, 0);
                 
-                [_editToken setSelectedRange:selectedRange];
-                [_editToken scrollRangeToVisible:selectedRange];
+                [_mainTokenEditor setSelectedRange:selectedRange];
+                [_mainTokenEditor scrollRangeToVisible:selectedRange];
             }
         }
         else {
             if(selectionWasExtendingFromText && !extendSelection) {
-                NSRange range = _editToken.selectedRange;
+                NSRange range = _mainTokenEditor.selectedRange;
 
-                [_tokenFieldView.window makeFirstResponder:_editToken];
-                [_editToken setSelectedRange:NSMakeRange(range.location + range.length, 0)];
+                [_tokenFieldView.window makeFirstResponder:_mainTokenEditor];
+                [_mainTokenEditor setSelectedRange:NSMakeRange(range.location + range.length, 0)];
             }
             else {
                 if(!extendSelection && oldSelectionLen > 1) {
@@ -348,22 +400,22 @@
                     [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
                 }
                 else if(_currentToken == _tokens.count-1) {
-                    [_tokenFieldView.window makeFirstResponder:_editToken];
+                    [_tokenFieldView.window makeFirstResponder:_mainTokenEditor];
 
                     if(!extendSelection) {
                         _currentToken = -1;
                         
-                        [_editToken setSelectedRange:NSMakeRange(0, 0)];
+                        [_mainTokenEditor setSelectedRange:NSMakeRange(0, 0)];
                     }
                     else {
-                        NSRange range = _editToken.selectedRange;
+                        NSRange range = _mainTokenEditor.selectedRange;
                         
                         if(range.length == 0) {
-                            [_editToken setSelectedRange:NSMakeRange(0, 1)];
+                            [_mainTokenEditor setSelectedRange:NSMakeRange(0, 1)];
                         }
                         else {
-                            [_editToken setSelectedRange:NSMakeRange(0, 0)];
-                            [_editToken setSelectedRange:range];
+                            [_mainTokenEditor setSelectedRange:NSMakeRange(0, 0)];
+                            [_mainTokenEditor setSelectedRange:range];
                         }
                     }
                 }
@@ -398,12 +450,12 @@
     _currentToken = -1;
     
     if(deleteText) {
-        [_editToken deleteToBeginningOfLine:self];
+        [_mainTokenEditor deleteToBeginningOfLine:self];
     }
     
     [self adjustTokenFrames];
     
-    [_tokenFieldView.window makeFirstResponder:_editToken];
+    [_tokenFieldView.window makeFirstResponder:_mainTokenEditor];
 }
 
 - (void)adjustTokenFrames {
@@ -416,11 +468,22 @@
             xpos = 0;
         }
         else {
-            SMTokenView *prevToken = (SMTokenView*)_tokens[i-1];
-            xpos = prevToken.frame.origin.x + prevToken.frame.size.width + 4;
+            SMTokenView *prevToken = _tokens[i-1];
+            
+            if(prevToken.editorView != nil) {
+                xpos = prevToken.editorView.frame.origin.x + prevToken.editorView.frame.size.width + 4;
+            }
+            else {
+                xpos = prevToken.frame.origin.x + prevToken.frame.size.width + 4;
+            }
         }
         
-        [token setFrame:NSMakeRect(xpos, 2, token.frame.size.width, token.frame.size.height)];
+        if(token.editorView != nil) {
+            [token.editorView setFrame:NSMakeRect(xpos, 1, token.editorView.attributedString.size.width, 15)];
+        }
+        else {
+            [token setFrame:NSMakeRect(xpos, 2, token.frame.size.width, token.frame.size.height)];
+        }
     }
 
     CGFloat xpos;
@@ -429,21 +492,27 @@
         xpos = 0;
     }
     else {
-        SMTokenView *prevToken = (SMTokenView*)_tokens.lastObject;
-        xpos = prevToken.frame.origin.x + prevToken.frame.size.width + 1;
+        SMTokenView *prevToken = _tokens.lastObject;
+
+        if(prevToken.editorView != nil) {
+            xpos = prevToken.editorView.frame.origin.x + prevToken.editorView.frame.size.width + 1;
+        }
+        else {
+            xpos = prevToken.frame.origin.x + prevToken.frame.size.width + 1;
+        }
     }
 
     CGFloat delta = 10;
-    if(xpos + _editToken.attributedString.size.width + delta < _scrollView.frame.size.width) {
-        _editToken.textContainer.size = NSMakeSize(_scrollView.frame.size.width - xpos, _editToken.textContainer.size.height);
+    if(xpos + _mainTokenEditor.attributedString.size.width + delta < _scrollView.frame.size.width) {
+        _mainTokenEditor.textContainer.size = NSMakeSize(_scrollView.frame.size.width - xpos, _mainTokenEditor.textContainer.size.height);
     }
     else {
-        _editToken.textContainer.size = NSMakeSize(_editToken.attributedString.size.width + delta, _editToken.textContainer.size.height);
+        _mainTokenEditor.textContainer.size = NSMakeSize(_mainTokenEditor.attributedString.size.width + delta, _mainTokenEditor.textContainer.size.height);
     }
     
-    _editToken.frame = NSMakeRect(xpos, 1, _editToken.textContainer.size.width, 15);
+    _mainTokenEditor.frame = NSMakeRect(xpos, 1, _mainTokenEditor.textContainer.size.width, 15);
     
-    _tokenFieldView.frame = NSMakeRect(_tokenFieldView.frame.origin.x, _tokenFieldView.frame.origin.y, xpos + _editToken.frame.size.width, _tokenFieldView.frame.size.height);
+    _tokenFieldView.frame = NSMakeRect(_tokenFieldView.frame.origin.x, _tokenFieldView.frame.origin.y, xpos + _mainTokenEditor.frame.size.width, _tokenFieldView.frame.size.height);
 }
 
 - (void)tokenMouseDown:(SMTokenView*)token event:(NSEvent *)theEvent {
@@ -454,7 +523,7 @@
     token.selected = YES;
     
     [_selectedTokens addIndex:_currentToken];
-    [_editToken setSelectedRange:NSMakeRange(0, 0)];
+    [_mainTokenEditor setSelectedRange:NSMakeRange(0, 0)];
     [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
     [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
  

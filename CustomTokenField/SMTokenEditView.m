@@ -21,7 +21,6 @@
     editToken.richText = NO;
     editToken.verticallyResizable = NO;
     editToken.importsGraphics = NO;
-    editToken.textContainer.widthTracksTextView = NO;
     editToken.textContainer.containerSize = NSMakeSize(0, editToken.textContainer.containerSize.height);
     editToken.fieldEditor = YES;
     
@@ -45,7 +44,6 @@
 }
 
 - (BOOL)becomeFirstResponder {
-    [_viewController editToken:self];
     [_viewController.view display];
     [self setSelectedRange:NSMakeRange(0, 0)];
     return YES;
