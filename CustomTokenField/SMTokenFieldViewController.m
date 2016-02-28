@@ -54,8 +54,6 @@
     _target = self;
     _action = @selector(testAction:);
     _actionDelay = 0.2;
-    
-//    [self editToken:_tokens[0]];
 }
 
 - (void)testAction:(id)sender {
@@ -162,11 +160,17 @@
 }
 
 - (void)textDidChange:(NSNotification *)notification {
-//    NSLog(@"%s: %@", __FUNCTION__, notification.userInfo);
-    [self deleteSelectedTokens];
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:_target selector:_action object:self];
-    [_target performSelector:_action withObject:self afterDelay:_actionDelay];
+    if(notification.object == _mainTokenEditor) {
+        [self deleteSelectedTokens];
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:_target selector:_action object:self];
+        [_target performSelector:_action withObject:self afterDelay:_actionDelay];
+    }
+    else {
+        // The notified editor is a token being edited.
+        // So trigger no action, just update the environment.
+        [self adjustTokenFrames];
+    }
 }
 
 - (void)cursorLeftFrom:(SMTokenEditView*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection {
@@ -479,7 +483,9 @@
         }
         
         if(token.editorView != nil) {
-            [token.editorView setFrame:NSMakeRect(xpos, 1, token.editorView.attributedString.size.width, 15)];
+            CGFloat leftDelta = 3;
+            CGFloat rightDelta = 7;
+            [token.editorView setFrame:NSMakeRect(xpos - leftDelta, 1, token.editorView.attributedString.size.width + rightDelta, 15)];
         }
         else {
             [token setFrame:NSMakeRect(xpos, 2, token.frame.size.width, token.frame.size.height)];

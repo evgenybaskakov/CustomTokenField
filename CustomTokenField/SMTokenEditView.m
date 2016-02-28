@@ -14,15 +14,17 @@
 }
 
 + (SMTokenEditView*)createEditToken:(SMTokenFieldViewController*)viewController {
-    SMTokenEditView *editToken = [[SMTokenEditView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController];
+    SMTokenEditView *editToken = [[SMTokenEditView alloc] initWithFrame:NSMakeRect(0, 0, NSUIntegerMax, 100) viewController:viewController];
 
     editToken.focusRingType = NSFocusRingTypeNone;
     editToken.delegate = viewController;
     editToken.richText = NO;
+    editToken.horizontallyResizable = YES;
     editToken.verticallyResizable = NO;
     editToken.importsGraphics = NO;
-    editToken.textContainer.containerSize = NSMakeSize(0, editToken.textContainer.containerSize.height);
+    editToken.textContainer.widthTracksTextView = NO;
     editToken.fieldEditor = YES;
+    editToken.drawsBackground = NO;
     
     return editToken;
 }
