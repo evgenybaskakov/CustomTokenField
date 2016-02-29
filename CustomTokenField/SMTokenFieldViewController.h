@@ -27,6 +27,7 @@
 - (void)cursorRightFrom:(SMTokenEditView*)sender jumpToEnd:(BOOL)jumpToEnd extendSelection:(BOOL)extendSelection;
 - (void)clearCursorSelection;
 - (void)tokenMouseDown:(SMTokenView*)token event:(NSEvent *)theEvent;
+- (void)clickWithinTokenEditor:(SMTokenEditView*)tokenEditor;
 - (void)deleteSelectedTokensAndText;
 
 @end

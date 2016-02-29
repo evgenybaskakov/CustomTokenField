@@ -136,7 +136,6 @@
     [path fill];
 }
 
-
 - (void)setSelected:(BOOL)selected {
     _selected = selected;
 

@@ -641,6 +641,10 @@
 - (void)tokenMouseDown:(SMTokenView*)token event:(NSEvent *)theEvent {
     [self clearCursorSelection];
     
+    if(_existingTokenEditor != nil) {
+        [self stopTokenEditing:YES];
+    }
+    
     _currentToken = [_tokens indexOfObject:token];
     
     token.selected = YES;
@@ -653,6 +657,14 @@
     // Force display in order to redraw the view if it just becomes 
     // the first responder and may need to refresh the graphics state.
     [self.view display];
+}
+
+- (void)clickWithinTokenEditor:(SMTokenEditView*)tokenEditor {
+    [self clearCursorSelection];
+    
+    if(tokenEditor == _mainTokenEditor && _existingTokenEditor != nil) {
+        [self stopTokenEditing:YES];
+    }
 }
 
 @end

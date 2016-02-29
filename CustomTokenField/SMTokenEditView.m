@@ -69,7 +69,7 @@
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-    [_viewController clearCursorSelection];
+    [_viewController clickWithinTokenEditor:self];
 
     [super mouseDown:theEvent];
 }
