@@ -144,7 +144,7 @@
     [self adjustTokenFrames];
 }
 
-- (void)stopTokenEditing:(BOOL)clearEditedTokenSelection {
+- (void)stopTokenEditing {
     NSAssert(_existingTokenEditor != nil, @"_existingTokenEditor == nil");
     
     SMTokenView *token = _existingTokenEditor.parentToken;
@@ -173,12 +173,12 @@
     _existingTokenEditor = nil;
     
     [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
-    
-    if(clearEditedTokenSelection) {
-        _tokens[idx].selected = NO;
-        [_selectedTokens removeIndex:idx];
-    }
 
+    // Make the token that's been edited as not selected.
+    _tokens[idx].selected = NO;
+    [_selectedTokens removeIndex:idx];
+
+    // Redraw everything.
     [self adjustTokenFrames];
     
     // TODO: trigger change token content action if any
@@ -314,7 +314,7 @@
             
             [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
 
-            [self stopTokenEditing:YES];
+            [self stopTokenEditing];
         }
     }
 }
@@ -340,7 +340,7 @@
             [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
         }
         
-        [self stopTokenEditing:YES];
+        [self stopTokenEditing];
         
         if(tokenIdx + 1 == _tokens.count) {
             [_tokenFieldView.window makeFirstResponder:_mainTokenEditor];
@@ -642,7 +642,7 @@
     [self clearCursorSelection];
     
     if(_existingTokenEditor != nil) {
-        [self stopTokenEditing:YES];
+        [self stopTokenEditing];
     }
     
     _currentToken = [_tokens indexOfObject:token];
@@ -663,7 +663,7 @@
     [self clearCursorSelection];
     
     if(tokenEditor == _mainTokenEditor && _existingTokenEditor != nil) {
-        [self stopTokenEditing:YES];
+        [self stopTokenEditing];
     }
 }
 
