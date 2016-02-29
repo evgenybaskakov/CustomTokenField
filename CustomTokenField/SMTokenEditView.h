@@ -8,9 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class SMTokenView;
 @class SMTokenFieldViewController;
 
 @interface SMTokenEditView : NSTextView
+
+@property SMTokenView __weak *parentToken;
 
 + (SMTokenEditView*)createEditToken:(SMTokenFieldViewController*)viewController;
 

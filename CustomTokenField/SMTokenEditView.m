@@ -14,16 +14,17 @@
 }
 
 + (SMTokenEditView*)createEditToken:(SMTokenFieldViewController*)viewController {
-    SMTokenEditView *editToken = [[SMTokenEditView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100) viewController:viewController];
+    SMTokenEditView *editToken = [[SMTokenEditView alloc] initWithFrame:NSMakeRect(0, 0, NSUIntegerMax, 100) viewController:viewController];
 
     editToken.focusRingType = NSFocusRingTypeNone;
     editToken.delegate = viewController;
     editToken.richText = NO;
+    editToken.horizontallyResizable = YES;
     editToken.verticallyResizable = NO;
     editToken.importsGraphics = NO;
     editToken.textContainer.widthTracksTextView = NO;
-    editToken.textContainer.containerSize = NSMakeSize(0, editToken.textContainer.containerSize.height);
     editToken.fieldEditor = YES;
+    editToken.drawsBackground = NO;
     
     return editToken;
 }
@@ -45,7 +46,6 @@
 }
 
 - (BOOL)becomeFirstResponder {
-    [_viewController editToken:self];
     [_viewController.view display];
     [self setSelectedRange:NSMakeRange(0, 0)];
     return YES;
@@ -69,7 +69,7 @@
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-    [_viewController clearCursorSelection];
+    [_viewController clickWithinTokenEditor:self];
 
     [super mouseDown:theEvent];
 }
@@ -79,13 +79,17 @@
 
     const NSUInteger codeLeft = 123, codeRight = 124, codeDelete = 51, codeForwardDelete = 117;
     
-    if(theEvent.keyCode == codeLeft && (self.selectedRange.location == 0 || commandKeyPressed)) {
+    if(theEvent.keyCode == codeLeft && self.selectedRange.location > 0) {
+        [super keyDown:theEvent];
+    }
+    else if(theEvent.keyCode == codeLeft && (self.selectedRange.location == 0 || commandKeyPressed)) {
         BOOL extendSelection = (theEvent.modifierFlags & NSShiftKeyMask) != 0;
 
         [_viewController cursorLeftFrom:self jumpToBeginning:commandKeyPressed extendSelection:extendSelection];
     }
-    else if(theEvent.keyCode == codeLeft || theEvent.keyCode == codeRight) { // TODO: add other movement keys
+    else if(theEvent.keyCode == codeLeft || theEvent.keyCode == codeRight) {
         BOOL extendSelection = (theEvent.modifierFlags & NSShiftKeyMask) != 0;
+        NSRange selection = self.selectedRange;
         
         if(theEvent.keyCode == codeLeft && !extendSelection && _viewController.tokenSelectionActive) {
             [_viewController clearCursorSelection];
@@ -96,7 +100,12 @@
                 [_viewController clearCursorSelection];
             }
             
-            [super keyDown:theEvent];
+            if(theEvent.keyCode == codeRight && selection.location + selection.length == self.string.length) {
+                [_viewController cursorRightFrom:self jumpToEnd:commandKeyPressed extendSelection:extendSelection];
+            }
+            else {
+                [super keyDown:theEvent];
+            }
         }
     }
     else if(theEvent.keyCode == codeDelete || (theEvent.keyCode == codeForwardDelete && _viewController.tokenSelectionActive)) {
