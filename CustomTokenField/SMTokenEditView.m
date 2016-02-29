@@ -79,13 +79,17 @@
 
     const NSUInteger codeLeft = 123, codeRight = 124, codeDelete = 51, codeForwardDelete = 117;
     
-    if(theEvent.keyCode == codeLeft && (self.selectedRange.location == 0 || commandKeyPressed)) {
+    if(theEvent.keyCode == codeLeft && self.selectedRange.location > 0) {
+        [super keyDown:theEvent];
+    }
+    else if(theEvent.keyCode == codeLeft && (self.selectedRange.location == 0 || commandKeyPressed)) {
         BOOL extendSelection = (theEvent.modifierFlags & NSShiftKeyMask) != 0;
 
         [_viewController cursorLeftFrom:self jumpToBeginning:commandKeyPressed extendSelection:extendSelection];
     }
-    else if(theEvent.keyCode == codeLeft || theEvent.keyCode == codeRight) { // TODO: add other movement keys
+    else if(theEvent.keyCode == codeLeft || theEvent.keyCode == codeRight) {
         BOOL extendSelection = (theEvent.modifierFlags & NSShiftKeyMask) != 0;
+        NSRange selection = self.selectedRange;
         
         if(theEvent.keyCode == codeLeft && !extendSelection && _viewController.tokenSelectionActive) {
             [_viewController clearCursorSelection];
@@ -96,7 +100,12 @@
                 [_viewController clearCursorSelection];
             }
             
-            [super keyDown:theEvent];
+            if(theEvent.keyCode == codeRight && selection.location + selection.length == self.string.length) {
+                [_viewController cursorRightFrom:self jumpToEnd:commandKeyPressed extendSelection:extendSelection];
+            }
+            else {
+                [super keyDown:theEvent];
+            }
         }
     }
     else if(theEvent.keyCode == codeDelete || (theEvent.keyCode == codeForwardDelete && _viewController.tokenSelectionActive)) {

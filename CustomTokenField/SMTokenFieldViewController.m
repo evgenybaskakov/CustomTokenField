@@ -159,6 +159,7 @@
     if(![newTokenString isEqualToString:token.contentsText]) {
 //        if(newTokenString.length > 0) {
         [self changeToken:token tokenName:token.tokenName contentsText:newTokenString representedObject:/*TODO*/nil target:token.target selector:token.selector];
+        token = nil;
 //        }
 //        else {
             // TODO
@@ -314,6 +315,38 @@
             [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
 
             [self stopTokenEditing:YES];
+        }
+    }
+}
+
+- (void)cursorRightFrom:(SMTokenEditView*)sender jumpToEnd:(BOOL)jumpToEnd extendSelection:(BOOL)extendSelection {
+    NSAssert(sender == _mainTokenEditor || sender == _existingTokenEditor, @"unknown sender");
+    
+    if(sender == _mainTokenEditor) {
+        // Nothing to do.
+    }
+    else {
+        NSUInteger tokenIdx = [_tokens indexOfObject:sender.parentToken];
+        NSAssert(tokenIdx != NSNotFound, @"edited token not found");
+        
+        [self clearCursorSelection];
+
+        if(tokenIdx + 1 < _tokens.count) {
+            _currentToken = tokenIdx + 1;
+            
+            [_selectedTokens addIndex:_currentToken];
+            _tokens[_currentToken].selected = YES;
+
+            [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
+        }
+        
+        [self stopTokenEditing:YES];
+        
+        if(tokenIdx + 1 == _tokens.count) {
+            [_tokenFieldView.window makeFirstResponder:_mainTokenEditor];
+            [_mainTokenEditor setSelectedRange:NSMakeRange(0, 0)];
+            
+            _currentToken = -1;
         }
     }
 }
