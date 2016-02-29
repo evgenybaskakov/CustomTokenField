@@ -138,9 +138,49 @@
     [_tokenFieldView addSubview:_existingTokenEditor];
     [_tokenFieldView.window makeFirstResponder:_existingTokenEditor];
     
+    _existingTokenEditor.parentToken = token;
     token.editorView = _existingTokenEditor;
     
     [self adjustTokenFrames];
+}
+
+- (void)stopTokenEditing:(BOOL)clearEditedTokenSelection {
+    NSAssert(_existingTokenEditor != nil, @"_existingTokenEditor == nil");
+    
+    SMTokenView *token = _existingTokenEditor.parentToken;
+    NSAssert(token != nil, @"parent token is nil");
+    
+    NSUInteger idx = [_tokens indexOfObject:token];
+    NSAssert(idx != NSNotFound, @"edited token not found");
+    
+    [_existingTokenEditor removeFromSuperview];
+    
+    NSString *newTokenString = _existingTokenEditor.string;
+    if(![newTokenString isEqualToString:token.contentsText]) {
+//        if(newTokenString.length > 0) {
+        [self changeToken:token tokenName:token.tokenName contentsText:newTokenString representedObject:/*TODO*/nil target:token.target selector:token.selector];
+//        }
+//        else {
+            // TODO
+//        }
+    }
+    else {
+        [_tokenFieldView addSubview:token];
+        token.editorView = nil;
+    }
+    
+    _existingTokenEditor = nil;
+    
+    [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
+    
+    if(clearEditedTokenSelection) {
+        _tokens[idx].selected = NO;
+        [_selectedTokens removeIndex:idx];
+    }
+
+    [self adjustTokenFrames];
+    
+    // TODO: trigger change token content action if any
 }
 
 - (BOOL)tokenSelectionActive {
@@ -176,61 +216,105 @@
 - (void)cursorLeftFrom:(SMTokenEditView*)sender jumpToBeginning:(BOOL)jumpToBeginning extendSelection:(BOOL)extendSelection {
 //    NSLog(@"%s", __FUNCTION__);
     
-    [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
+    NSAssert(sender == _mainTokenEditor || sender == _existingTokenEditor, @"unknown sender");
+    
+    if(sender == _mainTokenEditor) {
+        [_tokenFieldView.window makeFirstResponder:_tokenFieldView];
 
-    if(_tokens.count > 0) {
-        if(jumpToBeginning) {
-            if(!extendSelection) {
+        if(_tokens.count > 0) {
+            if(jumpToBeginning) {
+                if(sender == _mainTokenEditor) {
+                    if(!extendSelection) {
+                        [self clearCursorSelection];
+                        
+                        _currentToken = 0;
+
+                        [_selectedTokens addIndex:_currentToken];
+                        _tokens[_currentToken].selected = YES;
+                    }
+                    else {
+                        for(NSInteger i = 0; i < _tokens.count; i++) {
+                            [_selectedTokens addIndex:i];
+
+                            _tokens[i].selected = YES;
+                        }
+                        
+                        _currentToken = 0;
+
+                        NSRange range = _mainTokenEditor.selectedRange;
+                        [_mainTokenEditor setSelectedRange:NSMakeRange(0, range.location + range.length)];
+                    }
+                }
+                else {
+                    
+                }
+            }
+            else if(!extendSelection && _selectedTokens.count > 1) {
+                NSInteger firstToken = _selectedTokens.firstIndex;
+                
                 [self clearCursorSelection];
                 
-                _currentToken = 0;
-
+                _currentToken = firstToken;
+                
                 [_selectedTokens addIndex:_currentToken];
                 _tokens[_currentToken].selected = YES;
             }
             else {
-                for(NSInteger i = 0; i < _tokens.count; i++) {
-                    [_selectedTokens addIndex:i];
+                [self clearCursorSelection];
 
-                    _tokens[i].selected = YES;
-                }
+                _currentToken = _tokens.count-1;
                 
-                _currentToken = 0;
-
-                NSRange range = _mainTokenEditor.selectedRange;
-                [_mainTokenEditor setSelectedRange:NSMakeRange(0, range.location + range.length)];
+                [_selectedTokens addIndex:_currentToken];
+                _tokens[_currentToken].selected = YES;
             }
-        }
-        else if(!extendSelection && _selectedTokens.count > 1) {
-            NSInteger firstToken = _selectedTokens.firstIndex;
+
+            if(!extendSelection) {
+                [_mainTokenEditor setSelectedRange:NSMakeRange(0, 0)];
+            }
+
+            [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
             
-            [self clearCursorSelection];
-            
-            _currentToken = firstToken;
-            
-            [_selectedTokens addIndex:_currentToken];
-            _tokens[_currentToken].selected = YES;
+            _extendingSelectionFromText = extendSelection;
         }
         else {
-            [self clearCursorSelection];
-
-            _currentToken = _tokens.count-1;
-            
-            [_selectedTokens addIndex:_currentToken];
-            _tokens[_currentToken].selected = YES;
-        }
-
-        if(!extendSelection) {
+            [_tokenFieldView.window makeFirstResponder:_mainTokenEditor];
             [_mainTokenEditor setSelectedRange:NSMakeRange(0, 0)];
         }
-
-        [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
-        
-        _extendingSelectionFromText = extendSelection;
     }
     else {
-        [_tokenFieldView.window makeFirstResponder:_mainTokenEditor];
-        [_mainTokenEditor setSelectedRange:NSMakeRange(0, 0)];
+        NSUInteger tokenIdx = [_tokens indexOfObject:sender.parentToken];
+        NSAssert(tokenIdx != NSNotFound, @"edited token not found");
+        
+        if(tokenIdx > 0) {
+            [self clearCursorSelection];
+
+            if(jumpToBeginning) {
+                if(!extendSelection) {
+                    _currentToken = 0;
+                    
+                    [_selectedTokens addIndex:_currentToken];
+                    _tokens[_currentToken].selected = YES;
+                }
+                else {
+                    for(NSInteger i = 0; i < tokenIdx; i++) {
+                        [_selectedTokens addIndex:i];
+                        _tokens[i].selected = YES;
+                    }
+                    
+                    _currentToken = 0;
+                }
+            }
+            else {
+                _currentToken = tokenIdx - 1;
+                
+                [_selectedTokens addIndex:_currentToken];
+                _tokens[_currentToken].selected = YES;
+            }
+            
+            [_tokenFieldView scrollRectToVisible:_tokens[_currentToken].frame];
+
+            [self stopTokenEditing:YES];
+        }
     }
 }
 
