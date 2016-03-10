@@ -671,11 +671,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="SMTokenFieldViewController" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="74"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <box title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Db2-32-U2n" customClass="SMTokenFieldBox">
-                                <rect key="frame" x="20" y="231" width="440" height="22"/>
+                                <rect key="frame" x="20" y="26" width="440" height="22"/>
                                 <view key="contentView" id="dec-XB-DNG">
                                     <rect key="frame" x="1" y="1" width="438" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -716,19 +716,11 @@
                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jcH-Bm-sFA">
-                                <rect key="frame" x="20" y="195" width="96" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Dfx-lg-Qfd">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Db2-32-U2n" secondAttribute="bottom" constant="231" id="2wr-UQ-T0m"/>
+                            <constraint firstAttribute="bottom" secondItem="Db2-32-U2n" secondAttribute="bottom" constant="26" id="2wr-UQ-T0m"/>
                             <constraint firstItem="Db2-32-U2n" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="FYm-xc-74f"/>
-                            <constraint firstItem="Db2-32-U2n" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="17" id="Uvm-Jz-61r"/>
+                            <constraint firstItem="Db2-32-U2n" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="26" id="Uvm-Jz-61r"/>
                             <constraint firstAttribute="trailing" secondItem="Db2-32-U2n" secondAttribute="trailing" constant="20" id="ghR-Gg-JLb"/>
                         </constraints>
                     </view>
@@ -740,7 +732,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="557"/>
         </scene>
     </scenes>
     <resources>

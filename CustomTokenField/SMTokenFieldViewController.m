@@ -46,10 +46,11 @@
 }
 
 - (void)testSetup {
-    [self addToken:@"Token1" contentsText:@"Blah!!" target:self selector:@selector(tokenAction:)];
-    [self addToken:@"Token2" contentsText:@"Foo" target:self selector:@selector(tokenAction:)];
-    [self addToken:@"Token3" contentsText:@"Bar" target:self selector:@selector(tokenAction:)];
-    [self addToken:@"Token4" contentsText:@"Everything's weird" target:self selector:@selector(tokenAction:)];
+    [self addToken:@"From" contentsText:@"Fred" target:self selector:@selector(tokenAction:)];
+    [self addToken:@"To" contentsText:@"wilma@flintstones.com" target:self selector:@selector(tokenAction:)];
+    [self addToken:@"Subject" contentsText:@"Party tonight?!!!!!" target:self selector:@selector(tokenAction:)];
+
+    [_mainTokenEditor setString:@"Hello there!"];
     
     _target = self;
     _action = @selector(testAction:);
@@ -224,7 +225,6 @@
 
         if(_tokens.count > 0) {
             if(jumpToBeginning) {
-                if(sender == _mainTokenEditor) {
                     if(!extendSelection) {
                         [self clearCursorSelection];
                         
@@ -245,10 +245,6 @@
                         NSRange range = _mainTokenEditor.selectedRange;
                         [_mainTokenEditor setSelectedRange:NSMakeRange(0, range.location + range.length)];
                     }
-                }
-                else {
-                    
-                }
             }
             else if(!extendSelection && _selectedTokens.count > 1) {
                 NSInteger firstToken = _selectedTokens.firstIndex;

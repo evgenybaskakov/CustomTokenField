@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8011DFD01C75948A00340968 /* CustomTokenFieldExample.png in Resources */ = {isa = PBXBuildFile; fileRef = 8011DFCF1C75948A00340968 /* CustomTokenFieldExample.png */; };
 		803BB7831C76D7CD00D26AEA /* SMTokenFieldBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 803BB7821C76D7CD00D26AEA /* SMTokenFieldBox.m */; };
 		804131941C6EEBA80018D6D9 /* SMTokenFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 804131931C6EEBA80018D6D9 /* SMTokenFieldView.m */; };
+		804C463C1C912DB30060604E /* CustomTokenFieldExample1.png in Resources */ = {isa = PBXBuildFile; fileRef = 804C463A1C912DB30060604E /* CustomTokenFieldExample1.png */; };
+		804C463D1C912DB30060604E /* CustomTokenFieldExample2.png in Resources */ = {isa = PBXBuildFile; fileRef = 804C463B1C912DB30060604E /* CustomTokenFieldExample2.png */; };
 		809E09A91C6DA54F0071D813 /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 809E09A81C6DA54F0071D813 /* search-icon.png */; };
 		80C0E2741C6DC2DA002F4ADC /* SMTokenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C0E2731C6DC2DA002F4ADC /* SMTokenView.m */; };
 		80C0E2771C6DCB45002F4ADC /* SMTokenEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C0E2761C6DCB45002F4ADC /* SMTokenEditView.m */; };
@@ -40,11 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8011DFCF1C75948A00340968 /* CustomTokenFieldExample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CustomTokenFieldExample.png; sourceTree = "<group>"; };
 		803BB7811C76D7CD00D26AEA /* SMTokenFieldBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTokenFieldBox.h; sourceTree = "<group>"; };
 		803BB7821C76D7CD00D26AEA /* SMTokenFieldBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTokenFieldBox.m; sourceTree = "<group>"; };
 		804131921C6EEBA80018D6D9 /* SMTokenFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTokenFieldView.h; sourceTree = "<group>"; };
 		804131931C6EEBA80018D6D9 /* SMTokenFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTokenFieldView.m; sourceTree = "<group>"; };
+		804C463A1C912DB30060604E /* CustomTokenFieldExample1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CustomTokenFieldExample1.png; sourceTree = "<group>"; };
+		804C463B1C912DB30060604E /* CustomTokenFieldExample2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CustomTokenFieldExample2.png; sourceTree = "<group>"; };
 		809E09A81C6DA54F0071D813 /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
 		80C0E2721C6DC2DA002F4ADC /* SMTokenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTokenView.h; sourceTree = "<group>"; };
 		80C0E2731C6DC2DA002F4ADC /* SMTokenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTokenView.m; sourceTree = "<group>"; };
@@ -138,7 +140,8 @@
 		80E0851F1C6C776200964540 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8011DFCF1C75948A00340968 /* CustomTokenFieldExample.png */,
+				804C463A1C912DB30060604E /* CustomTokenFieldExample1.png */,
+				804C463B1C912DB30060604E /* CustomTokenFieldExample2.png */,
 				809E09A81C6DA54F0071D813 /* search-icon.png */,
 				80E085201C6C776200964540 /* main.m */,
 			);
@@ -266,9 +269,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				804C463C1C912DB30060604E /* CustomTokenFieldExample1.png in Resources */,
 				80E085261C6C776200964540 /* Assets.xcassets in Resources */,
 				80E085291C6C776200964540 /* Main.storyboard in Resources */,
-				8011DFD01C75948A00340968 /* CustomTokenFieldExample.png in Resources */,
+				804C463D1C912DB30060604E /* CustomTokenFieldExample2.png in Resources */,
 				809E09A91C6DA54F0071D813 /* search-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
